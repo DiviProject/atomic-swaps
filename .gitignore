@@ -23,5 +23,11 @@ _testmain.go
 *.test
 *.prof
 
+**/vendor
+
 !**/*.gitkeep
 **/*.DS_Store
+
+# From other branches
+build
+node_modules

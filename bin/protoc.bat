@@ -1,0 +1,1 @@
+protoc %cd%/src/proto/*.proto --proto_path=%cd%/src/proto --go_out=plugins=grpc:%cd%/src/api --grpc-gateway_out=logtostderr=true:%cd%/src/api --swagger_out=logtostderr=true:%cd%/src/api -I%GOPATH%/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis -I%GOPATH%/include

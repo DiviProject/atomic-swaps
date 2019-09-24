@@ -1,0 +1,72 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "refund.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/refund": {
+      "post": {
+        "operationId": "refund",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiRefundResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/apiRefundRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Refund"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "apiRefundRequest": {
+      "type": "object",
+      "properties": {
+        "contractBytes": {
+          "type": "string"
+        },
+        "transactionBytes": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        }
+      }
+    },
+    "apiRefundResponse": {
+      "type": "object",
+      "properties": {
+        "refundFee": {
+          "type": "string"
+        },
+        "refundTransaction": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

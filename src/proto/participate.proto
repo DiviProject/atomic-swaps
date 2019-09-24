@@ -1,0 +1,31 @@
+syntax = "proto3";
+package api;
+
+import "google/api/annotations.proto";
+
+message ParticipateRequest {
+  string address = 1;
+  double amount = 2;
+  string hash = 3;
+  string currency = 4;
+}
+
+message ParticipateResponse {
+  string contractFee = 1;
+  string refundFee = 2;
+  string contract = 3;
+  string contractBytes = 4;
+  string contractTransaction = 5;
+  string contractTransactionBytes = 6;
+  string refundTransaction = 7;
+  string refundTransactionBytes = 8;
+}
+
+service Participate {
+  rpc participate(ParticipateRequest) returns (ParticipateResponse) {
+   option (google.api.http) = {
+    post: "/v1/participate"
+    body: "*"
+   };
+  }
+}

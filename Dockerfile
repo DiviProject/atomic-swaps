@@ -1,12 +1,9 @@
-FROM diviproject/divi:prerelease
-
-# Configure and Compile Bitcoin
-RUN git clone https://github.com/bitcoin/bitcoin --depth 1
-
-WORKDIR /app/bitcoin
-
-RUN ./autogen.sh
-RUN ./configure
-RUN make
+FROM golang:latest
 
 WORKDIR /app
+COPY . .
+
+RUN curl https://glide.sh/get | sh
+RUN glide install
+
+CMD ["bash"]

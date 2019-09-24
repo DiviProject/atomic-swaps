@@ -1,6 +1,11 @@
-Please ensure that your pull request passes CI.
+### Description
 
-Before pull requests can be accepted.
-Please make sure to reference the related issue that the pull request is related to.
+**A description of your pull request.**
 
-Make sure to clearly describe what your pull request does to the codebase.
+### Features
+
+**Features or fixes included in your pull request.**
+
+### Notes
+
+**Any other additional notes.**

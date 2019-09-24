@@ -1,0 +1,30 @@
+syntax = "proto3";
+package api;
+
+import "google/api/annotations.proto";
+
+message SwapStatusRequest {
+    string id = 1;
+}
+
+message SwapStatusResponse {
+    string status = 1;
+    string baseStatus = 2;
+    string swapStatus = 3;
+    string baseAddress = 4;
+    string swapAddress = 5;
+    string baseContract = 6;
+    string swapContract = 7;
+    string baseTransaction = 8;
+    string swapTransaction = 9;
+    string baseRedeemTransaction = 10;
+    string swapRedeemTransaction = 11;
+}
+
+service SwapStatus {
+  rpc swapstatus(SwapStatusRequest) returns (SwapStatusResponse) {
+    option (google.api.http) = {
+      get: "/v1/swap/{id}"
+    };
+  }
+}

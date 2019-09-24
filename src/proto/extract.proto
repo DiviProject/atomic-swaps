@@ -1,0 +1,23 @@
+syntax = "proto3";
+package api;
+
+import "google/api/annotations.proto";
+
+message ExtractRequest {
+  string transactionBytes = 1;
+  string secret = 2;
+  string currency = 3;
+}
+
+message ExtractResponse {
+  string secret = 1;
+}
+
+service Extract {
+  rpc extract(ExtractRequest) returns (ExtractResponse) {
+   option (google.api.http) = {
+    post: "/v1/extract"
+    body: "*"
+   };
+  }
+}

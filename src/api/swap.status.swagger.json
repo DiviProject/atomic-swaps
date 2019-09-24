@@ -1,0 +1,83 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "swap.status.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/swap/{id}": {
+      "get": {
+        "operationId": "swapstatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiSwapStatusResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "SwapStatus"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "apiSwapStatusResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "baseStatus": {
+          "type": "string"
+        },
+        "swapStatus": {
+          "type": "string"
+        },
+        "baseAddress": {
+          "type": "string"
+        },
+        "swapAddress": {
+          "type": "string"
+        },
+        "baseContract": {
+          "type": "string"
+        },
+        "swapContract": {
+          "type": "string"
+        },
+        "baseTransaction": {
+          "type": "string"
+        },
+        "swapTransaction": {
+          "type": "string"
+        },
+        "baseRedeemTransaction": {
+          "type": "string"
+        },
+        "swapRedeemTransaction": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

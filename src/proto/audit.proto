@@ -1,0 +1,28 @@
+syntax = "proto3";
+package api;
+
+import "google/api/annotations.proto";
+
+message AuditRequest {
+  string contractBytes = 1;
+  string transactionBytes = 2;
+  string currency = 3;
+}
+
+message AuditResponse {
+  string contractAddress = 1;
+  string contractValue = 2;
+  string recipientAddress = 3;
+  string refundAddress = 4;
+  string secretHash = 5;
+  string lockTimeBlock = 6;
+}
+
+service Audit {
+  rpc audit(AuditRequest) returns (AuditResponse) {
+   option (google.api.http) = {
+    post: "/v1/audit"
+    body: "*"
+   };
+  }
+}
