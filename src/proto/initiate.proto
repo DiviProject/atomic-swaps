@@ -1,0 +1,32 @@
+syntax = "proto3";
+package api;
+
+import "google/api/annotations.proto";
+
+message InitiateRequest {
+  string address = 1;
+  double amount = 2;
+  string currency = 3;
+}
+
+message InitiateResponse {
+  string secret = 1;
+  string secretHash = 2;
+  string contractFee = 3;
+  string refundFee = 4;
+  string contractAddress = 5;
+  string contractBytes = 6;
+  string contractTransaction = 7;
+  string contractTransactionBytes = 8;
+  string contractRefund = 9;
+  string contractRefundBytes = 10;
+}
+
+service Initiate {
+  rpc initiate(InitiateRequest) returns (InitiateResponse) {
+   option (google.api.http) = {
+    post: "/v1/initiate"
+    body: "*"
+   };
+  }
+}

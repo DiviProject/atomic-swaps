@@ -3,5 +3,26 @@ language: go
 services:
   - docker
 
+env:
+  - GO111MODULE="on"
+
+before_install:
+  - nvm install --lts
+
 script:
-  - ls -la
+  # Compile atomic swap binary
+  - curl https://glide.sh/get | sh
+  - glide install
+  - go build -i -o ./dist/atomicswap ./src/atomicswap.go
+
+  # Build and run Docker container
+  - docker build -t atomicswaps -f docker/test.Dockerfile .
+  - docker run -it -v $PWD:/app atomicswaps
+  
+  # Run testing suite
+  - cd test
+  - npm install
+  - npm run test
+
+  # Shutdown regtest node
+  - killall bitcoind

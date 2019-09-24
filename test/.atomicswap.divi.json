@@ -1,0 +1,14 @@
+{
+    "rpc-host": "localhost",
+    "rpc-port": 1337,
+    "rpc-user": "divi",
+    "rpc-password": "divi",
+    "base-currency": "divi",
+    "swap-currency": "bitcoin",
+    "mainnet": false,
+    "testnet": false,
+    "regtest": true,
+    "server": false,
+    "server-port": 9001,
+    "grpc-port": 9999
+}

@@ -1,0 +1,84 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "audit.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/audit": {
+      "post": {
+        "operationId": "audit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiAuditResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/apiAuditRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Audit"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "apiAuditRequest": {
+      "type": "object",
+      "properties": {
+        "contract": {
+          "type": "string"
+        },
+        "transaction": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        }
+      }
+    },
+    "apiAuditResponse": {
+      "type": "object",
+      "properties": {
+        "contractAddress": {
+          "type": "string"
+        },
+        "contractValue": {
+          "type": "string"
+        },
+        "recipientAddress": {
+          "type": "string"
+        },
+        "refundAddress": {
+          "type": "string"
+        },
+        "secretHash": {
+          "type": "string"
+        },
+        "lockTimeBlock": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

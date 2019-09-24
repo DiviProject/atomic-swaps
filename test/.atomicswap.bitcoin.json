@@ -1,0 +1,14 @@
+{
+    "rpc-host": "localhost",
+    "rpc-port": 1338,
+    "rpc-user": "bitcoin",
+    "rpc-password": "bitcoin",
+    "base-currency": "bitcoin",
+    "swap-currency": "divi",
+    "mainnet": false,
+    "testnet": false,
+    "regtest": true,
+    "server": false,
+    "server-port": 9001,
+    "grpc-port": 9999
+}

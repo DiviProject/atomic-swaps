@@ -1,0 +1,110 @@
+hash: 98b9e18a661937522903efb79794e471c3b20ba2bbcef4fe65993042154ec740
+updated: 2019-09-25T22:17:47.31943-04:00
+imports:
+- name: github.com/btcsuite/btcd
+  version: 130ea5bddde33df32b06a1cdb42a6316eb73cff5
+  subpackages:
+  - chaincfg
+  - chaincfg/chainhash
+  - rpcclient
+  - txscript
+  - wire
+- name: github.com/btcsuite/btcutil
+  version: 9e5f4b9a998d263e3ce9c56664a7816001ac8000
+- name: github.com/btcsuite/btcwallet
+  version: 95d7aa0b4953bd67cd265f4a378ea2cde52c54d1
+  subpackages:
+  - wallet/txrules
+- name: github.com/golang/protobuf
+  version: 6c65a5562fc06764971b7c5d05c76c75e84bdbf7
+  subpackages:
+  - jsonpb
+  - proto
+  - protoc-gen-go
+  - protoc-gen-go/descriptor
+  - protoc-gen-go/generator
+  - protoc-gen-go/generator/internal/remap
+  - protoc-gen-go/plugin
+  - ptypes
+  - ptypes/any
+  - ptypes/duration
+  - ptypes/struct
+  - ptypes/timestamp
+  - ptypes/wrappers
+- name: github.com/grpc-ecosystem/grpc-gateway
+  version: 6527435ba8b22462597eda661d39ac0a3eeed369
+  subpackages:
+  - internal
+  - runtime
+  - utilities
+- name: github.com/inconshreveable/mousetrap
+  version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
+- name: github.com/spf13/cobra
+  version: f2b07da1e2c38d5f12845a4f607e2e1018cbb1f5
+  subpackages:
+  - cobra
+- name: github.com/spf13/pflag
+  version: 2e9d26c8c37aae03e3f9d4e90b7116f5accb7cab
+- name: golang.org/x/net
+  version: aa69164e4478b84860dc6769c710c699c67058a3
+  subpackages:
+  - http/httpguts
+  - http2
+  - http2/hpack
+  - idna
+  - internal/timeseries
+  - trace
+- name: golang.org/x/sys
+  version: 2837fb4f24fee082b8c39b1a6dc9e0ed9f3fbd4f
+  subpackages:
+  - unix
+- name: golang.org/x/text
+  version: 3d0f7978add91030e5e8976ff65ccdd828286cba
+  subpackages:
+  - secure/bidirule
+  - transform
+  - unicode/bidi
+  - unicode/norm
+- name: google.golang.org/genproto
+  version: b8fbc687dcfb8a4f653770e1ea13fc3d0c5085f0
+  subpackages:
+  - googleapis/api/annotations
+  - googleapis/api/httpbody
+  - googleapis/rpc/status
+  - protobuf/field_mask
+- name: google.golang.org/grpc
+  version: 39e8a7b072a67ca2a75f57fa2e0d50995f5b22f6
+  subpackages:
+  - balancer
+  - balancer/base
+  - balancer/roundrobin
+  - binarylog/grpc_binarylog_v1
+  - codes
+  - connectivity
+  - credentials
+  - credentials/internal
+  - encoding
+  - encoding/proto
+  - grpclog
+  - internal
+  - internal/backoff
+  - internal/balancerload
+  - internal/binarylog
+  - internal/channelz
+  - internal/envconfig
+  - internal/grpcrand
+  - internal/grpcsync
+  - internal/syscall
+  - internal/transport
+  - keepalive
+  - metadata
+  - naming
+  - peer
+  - resolver
+  - resolver/dns
+  - resolver/passthrough
+  - serviceconfig
+  - stats
+  - status
+  - tap
+testImports: []

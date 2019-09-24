@@ -1,0 +1,26 @@
+package: atomic-swaps
+import:
+- package: google.golang.org/grpc
+  version: 1.0.0
+- package: github.com/golang/protobuf
+  version: 1.0.0
+  subpackages:
+  - protoc-gen-go
+- package: github.com/btcsuite/btcd
+  subpackages:
+  - txscript
+  - wire
+  - chaincfg
+  - chaincfg/chainhash
+  - rpcclient
+- package: github.com/btcsuite/btcutil
+- package: github.com/btcsuite/btcwallet
+  subpackages:
+  - wallet/txrules
+- package: github.com/spf13/cobra
+  version: 0.0.5
+  subpackages:
+  - cobra
+- package: github.com/spf13/pflag
+  version: 1.0.5
+

@@ -1,0 +1,97 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "initiate.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/initiate": {
+      "post": {
+        "operationId": "initiate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiInitiateResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/apiInitiateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Initiate"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "apiInitiateRequest": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number",
+          "format": "double"
+        },
+        "currency": {
+          "type": "string"
+        }
+      }
+    },
+    "apiInitiateResponse": {
+      "type": "object",
+      "properties": {
+        "secret": {
+          "type": "string"
+        },
+        "secretHash": {
+          "type": "string"
+        },
+        "contractFee": {
+          "type": "string"
+        },
+        "refundFee": {
+          "type": "string"
+        },
+        "contractAddress": {
+          "type": "string"
+        },
+        "contractBytes": {
+          "type": "string"
+        },
+        "contractTransaction": {
+          "type": "string"
+        },
+        "contractTransactionBytes": {
+          "type": "string"
+        },
+        "contractRefund": {
+          "type": "string"
+        },
+        "contractRefundBytes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

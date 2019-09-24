@@ -1,0 +1,75 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "redeem.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/redeem": {
+      "post": {
+        "operationId": "redeem",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiRedeemResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/apiRedeemRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Redeem"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "apiRedeemRequest": {
+      "type": "object",
+      "properties": {
+        "contract": {
+          "type": "string"
+        },
+        "transaction": {
+          "type": "string"
+        },
+        "secret": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        }
+      }
+    },
+    "apiRedeemResponse": {
+      "type": "object",
+      "properties": {
+        "redeemFee": {
+          "type": "string"
+        },
+        "redeemTransaction": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

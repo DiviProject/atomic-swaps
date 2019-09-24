@@ -1,0 +1,22 @@
+{
+  "name": "atomic-testing",
+  "version": "1.0.0",
+  "main": "src/cli.test.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^12.12.6",
+    "chai": "^4.2.0",
+    "execa": "^3.2.0",
+    "fs-jetpack": "^2.2.3",
+    "mocha": "^6.2.2",
+    "path": "^0.12.7",
+    "superagent": "^5.1.0",
+    "typescript": "^3.7.2"
+  },
+  "scripts": {
+    "build": "tsc --outDir dist",
+    "test": "npm run build && mocha dist --timeout 25000",
+    "test-cli": "npm run build && mocha dist/cli.test.js --timeout 25000",
+    "test-http": "npm run build && mocha dist/http.test.js --timeout 25000"
+  }
+}
