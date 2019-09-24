@@ -1,0 +1,20 @@
+{
+    "base-currency": "divi",
+    "base-confirmations": 1,
+    "base-rpc-host": "localhost",
+    "base-rpc-port": 1337,
+    "base-rpc-user": "divi",
+    "base-rpc-password": "divi",
+    "base-network": "regtest",
+    "swap-currency": "bitcoin",
+    "swap-confirmations": 1,
+    "swap-rpc-host": "localhost",
+    "swap-rpc-port": 1338,
+    "swap-rpc-user": "bitcoin",
+    "swap-rpc-password": "bitcoin",
+    "swap-network": "regtest",
+    "mongodb": "mongodb://localhost:27017",
+    "database": "atomic-swaps",
+    "server-port": 9001,
+    "grpc-port": 9999
+}

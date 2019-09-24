@@ -1,0 +1,25 @@
+syntax = "proto3";
+package api;
+
+import "google/api/annotations.proto";
+
+message RedeemRequest {
+  string contractBytes = 1;
+  string transactionBytes = 2;
+  string secret = 3;
+  string currency = 4;
+}
+
+message RedeemResponse {
+  string redeemFee = 1;
+  string redeemTransaction = 2;
+}
+
+service Redeem {
+  rpc redeem(RedeemRequest) returns (RedeemResponse) {
+   option (google.api.http) = {
+    post: "/v1/redeem"
+    body: "*"
+   };
+  }
+}

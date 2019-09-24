@@ -1,0 +1,24 @@
+syntax = "proto3";
+package api;
+
+import "google/api/annotations.proto";
+
+message RefundRequest {
+  string contractBytes = 1;
+  string transactionBytes = 2;
+  string currency = 3;
+}
+
+message RefundResponse {
+  string refundFee = 1;
+  string refundTransaction = 2;
+}
+
+service Refund {
+  rpc refund(RefundRequest) returns (RefundResponse) {
+   option (google.api.http) = {
+    post: "/v1/refund"
+    body: "*"
+   };
+  }
+}
