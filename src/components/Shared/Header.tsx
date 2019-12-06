@@ -25,15 +25,16 @@ export class Header extends Component<HeaderProps, HeaderState> {
         return(
             <header>
                 <div className="wrapper">
-                    <div className="brand">
+                    <Link className="brand" to="/">
                         <img src={logo} alt="logo" title="logo"/>
                         <h1>Atomic Swaps</h1>
-                    </div>
+                    </Link>
                     <a className="menu-button" onClick={this.toggleMenu.bind(this)}>
                         <i className="fas fa-bars"></i>
                     </a>
-                    <div className={`menu ${this.state.menu ? 'active' : ''}`}>
+                    <div className={`menu ${this.state.menu ? 'active' : ''}`} onClick={this.toggleMenu.bind(this)}>
                         <Link className="link" to="/">Home</Link>
+                        <Link className="link" to="/how-it-works">How it Works</Link>
                         <Link className="link" to="/api">API Reference</Link>
                         <Link className="link" to="/examples">Examples</Link>
                         <Link className="link" to="/godoc">GoDoc Reference</Link>

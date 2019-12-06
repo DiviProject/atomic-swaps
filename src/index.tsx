@@ -1,6 +1,6 @@
-import './index.scss';
+import './Styles/App.scss';
 
-import CodeMirror from 'react-codemirror2';
+import 'react-codemirror2';
 import 'codemirror/mode/shell/shell';
 import 'codemirror/mode/javascript/javascript';
 

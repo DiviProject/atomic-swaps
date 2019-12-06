@@ -1,5 +1,3 @@
-import './Home.scss';
-
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -23,6 +21,17 @@ export class Home extends Component {
                     <i className="fas fa-chevron-right"></i>
                     <i className="fas fa-chevron-right"></i>
                     <img src={bitcoin} className="bitcoin"/>
+                </div>
+
+                <div className="buttons">
+                    <Link className="button" to="/how-it-works">
+                        <i className="fas fa-question-circle"></i>
+                        How it works
+                    </Link>
+                    <a className="button" href="https://diviproject.org" target="diviproject">
+                        <i className="fas fa-sign-out-alt"></i>
+                        Go to Divi
+                    </a>
                 </div>
 
                 <div className="buttons">

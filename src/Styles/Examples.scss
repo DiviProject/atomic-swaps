@@ -1,0 +1,166 @@
+div.page-wrap.page-examples {
+    display: flex;
+    padding: 0;
+    max-width: 100%;
+    height: auto;
+    max-height: none;
+
+    @media (max-width: 640px) {
+        flex-wrap: wrap;
+    }
+
+    div.page-column {
+        h2, h3 {
+            margin: 0;
+            padding: 0 0 15px 0;
+            span.bold {
+                font-weight: bold;
+                margin: 0 15px 0 0;
+            }
+        }
+
+        &.table-of-contents {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 320px;
+            height: 100%;
+            background: lighten(black, 20%);
+            z-index: 9;
+            padding: 15px 15px 15px 15px;
+
+            h3 {
+                padding-top: 65px !important;
+                @media (max-width: 640px) {
+                    padding-top: 15px !important;
+                }
+            }
+
+            @media (max-width: 640px) {
+                position: relative;
+                width: 100%;
+                padding: 0px 0px 30px 0px !important;
+            }
+        }
+
+        &.primary {
+            width: 100%;
+            max-width: 1500px;
+            padding: 15px 15px 480px 335px;
+
+            @media (max-width: 640px) {
+                padding: 15px 15px 150px 15px;
+            }
+        }
+    }
+
+    div.page-column.table-of-contents {
+        padding: 0;
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            padding: 15px;
+        }
+        a.link {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 40px;
+            padding: 0 15px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: opacity 0.25s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+            &:hover {
+                background: lighten(black, 25%);
+            }
+            &.active {
+                background: lighten(black, 30%);
+            }
+            span.yellow, span.blue {
+                display: flex;
+                font-weight: bold;
+                color: #FFFFCC;
+                width: 80px;
+                &.blue { color: rgba(77,118,255,1); }
+            }
+        }
+    }
+
+    div.example-wrap {
+        padding: 15px 15px 180px 15px;
+    }
+
+    div.example {
+        width: 100%;
+
+        div.example-buttons {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 45px;
+            margin: 0 0 15px 0;
+
+            a.example-button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(107deg, rgba(77,118,255,1) 0%, rgba(15,63,140,1) 100%);
+                color: white;
+                width: 180px;
+                height: 30px;
+                border-radius: 5px;
+                margin: 0 15px 0 0;
+                opacity: 0.75;
+                cursor: pointer;
+                font-size: 12px;
+                font-weight: bold;
+                text-decoration: none;
+                transition: opacity 0.25s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+
+                i {
+                    margin: 0 10px 0 0;
+                }
+
+                &:hover, &.active { opacity: 1; }
+            }
+        }
+    }
+
+    div.example-content {
+        div.example-text {
+            width: 100%;
+            padding: 0 0 15px 0;
+
+            h3 {
+                font-size: 18px;
+                font-weight: 700;
+                padding: 30px 0;
+            }
+
+            h4 {
+                font-size: 16px;
+                font-weight: bold;
+                padding: 0;
+                margin: 0;
+                span.red {
+                    color: #e17366;
+                    font-weight: bold;
+                    margin: 0 5px 0 0;
+                }
+            }
+        }
+
+        div.react-codemirror2 {
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            border-radius: 8px;
+            div.CodeMirror {
+                height: 100%;
+                padding: 10px 5px;
+            }
+        }
+    }
+}
