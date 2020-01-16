@@ -38,7 +38,7 @@ type Config struct {
 }
 
 // Configure : Reads configuration from a json file and returns a Config object
-// You can reference https://github.com/DiviProject/atomic-swaps/blob/master/.atomicswap.json to learn how to write your own configuration file.
+// You can reference https://github.com/DiviProject/atomic-swaps/src/blob/master/.atomicswap.json to learn how to write your own configuration file.
 func Configure(path string) Config {
 	var config Config
 

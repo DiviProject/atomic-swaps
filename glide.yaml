@@ -1,4 +1,7 @@
 package: atomic-swaps
+ignore:
+- atomic-swaps
+- google.golang.org/grpc/status
 import:
 - package: google.golang.org/grpc
   version: 1.0.0

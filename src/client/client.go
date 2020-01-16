@@ -12,7 +12,7 @@ import (
 
 // CLI : This function sets up and configures the atomic swaps application.
 // This function can accept flags from the command line.
-// It can also accept a configuration file, see: https://github.com/DiviProject/atomic-swaps/blob/master/.atomicswap.json as a reference.
+// It can also accept a configuration file, see: https://github.com/DiviProject/atomic-swaps/src/blob/master/.atomicswap.json as a reference.
 // It also hooks up the commands that can be used, which includes running this as a gRPC server.
 func CLI() {
 	// Get the Configuration file
