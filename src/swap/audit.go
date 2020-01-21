@@ -9,9 +9,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/btcsuite/btcd/txscript"
-	"github.com/btcsuite/btcd/wire"
-	"github.com/btcsuite/btcutil"
+	"github.com/DiviProject/divid/txscript"
+	"github.com/DiviProject/divid/wire"
+	"github.com/DiviProject/diviutil"
 )
 
 // Audit : The audit command
@@ -20,14 +20,14 @@ import (
 func Audit(contract []byte, contractTx wire.MsgTx, currency string, autopublish bool) (api.AuditResponse, error) {
 	network := RetrieveNetwork(currency)
 
-	contractHash160 := btcutil.Hash160(contract)
+	contractHash160 := diviutil.Hash160(contract)
 	contractOut := -1
 	for i, out := range contractTx.TxOut {
 		sc, addrs, _, err := txscript.ExtractPkScriptAddrs(out.PkScript, network)
 		if err != nil || sc != txscript.ScriptHashTy {
 			continue
 		}
-		if bytes.Equal(addrs[0].(*btcutil.AddressScriptHash).Hash160()[:], contractHash160) {
+		if bytes.Equal(addrs[0].(*diviutil.AddressScriptHash).Hash160()[:], contractHash160) {
 			contractOut = i
 			break
 		}
@@ -47,21 +47,21 @@ func Audit(contract []byte, contractTx wire.MsgTx, currency string, autopublish 
 		return api.AuditResponse{"", "", "", "", "", "", struct{}{}, nil, 51200}, fmt.Errorf("contract specifies strange secret size %v", pushes.SecretSize)
 	}
 
-	contractAddr, err := btcutil.NewAddressScriptHash(contract, network)
+	contractAddr, err := diviutil.NewAddressScriptHash(contract, network)
 	if err != nil {
 		return api.AuditResponse{"", "", "", "", "", "", struct{}{}, nil, 51200}, err
 	}
-	recipientAddr, err := btcutil.NewAddressPubKeyHash(pushes.RecipientHash160[:], network)
+	recipientAddr, err := diviutil.NewAddressPubKeyHash(pushes.RecipientHash160[:], network)
 	if err != nil {
 		return api.AuditResponse{"", "", "", "", "", "", struct{}{}, nil, 51200}, err
 	}
-	refundAddr, err := btcutil.NewAddressPubKeyHash(pushes.RefundHash160[:], network)
+	refundAddr, err := diviutil.NewAddressPubKeyHash(pushes.RefundHash160[:], network)
 	if err != nil {
 		return api.AuditResponse{"", "", "", "", "", "", struct{}{}, nil, 51200}, err
 	}
 
 	fmt.Printf("Contract address:        %v\n", contractAddr)
-	fmt.Printf("Contract value:          %v\n", btcutil.Amount(contractTx.TxOut[contractOut].Value))
+	fmt.Printf("Contract value:          %v\n", diviutil.Amount(contractTx.TxOut[contractOut].Value))
 	fmt.Printf("Recipient address:       %v\n", recipientAddr)
 	fmt.Printf("Author's refund address: %v\n\n", refundAddr)
 

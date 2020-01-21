@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/btcsuite/btcutil"
+	"github.com/DiviProject/diviutil"
 )
 
 // Initiate : Initiate an atomic swap
@@ -18,7 +18,7 @@ import (
 func Initiate(address string, amount float64, currency string, autopublish bool) (api.InitiateResponse, error) {
 	network := RetrieveNetwork(currency)
 
-	decodedAddress, err := btcutil.DecodeAddress(address, network)
+	decodedAddress, err := diviutil.DecodeAddress(address, network)
 	if err != nil {
 		return api.InitiateResponse{"", "", "", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, err
 	}
@@ -27,12 +27,12 @@ func Initiate(address string, amount float64, currency string, autopublish bool)
 		return api.InitiateResponse{"", "", "", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, fmt.Errorf("This address is not for this currency")
 	}
 
-	p2pkh, ok := decodedAddress.(*btcutil.AddressPubKeyHash)
+	p2pkh, ok := decodedAddress.(*diviutil.AddressPubKeyHash)
 	if !ok {
 		return api.InitiateResponse{"", "", "", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, fmt.Errorf("participant address is not P2PKH")
 	}
 
-	cryptoAmount, err := btcutil.NewAmount(amount)
+	cryptoAmount, err := diviutil.NewAmount(amount)
 	if err != nil {
 		return api.InitiateResponse{"", "", "", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, err
 	}

@@ -8,10 +8,10 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/btcsuite/btcd/txscript"
-	"github.com/btcsuite/btcd/wire"
-	"github.com/btcsuite/btcutil"
-	"github.com/btcsuite/btcwallet/wallet/txrules"
+	"github.com/DiviProject/divid/txscript"
+	"github.com/DiviProject/divid/wire"
+	"github.com/DiviProject/diviutil"
+	"github.com/DiviProject/diviwallet/wallet/txrules"
 )
 
 // Redeem : Redeems an atomic swap
@@ -34,16 +34,16 @@ func Redeem(contract []byte, contractTx wire.MsgTx, secret []byte, currency stri
 		return api.RedeemResponse{"", "", struct{}{}, nil, 51200}, errors.New("contract is not an atomic swap script recognized by this tool")
 	}
 
-	recipientAddr, err := btcutil.NewAddressPubKeyHash(pushes.RecipientHash160[:], network)
+	recipientAddr, err := diviutil.NewAddressPubKeyHash(pushes.RecipientHash160[:], network)
 	if err != nil {
 		return api.RedeemResponse{"", "", struct{}{}, nil, 51200}, err
 	}
-	contractHash := btcutil.Hash160(contract)
+	contractHash := diviutil.Hash160(contract)
 	contractOut := -1
 	for i, out := range contractTx.TxOut {
 		sc, addrs, _, _ := txscript.ExtractPkScriptAddrs(out.PkScript, network)
 		if sc == txscript.ScriptHashTy &&
-			bytes.Equal(addrs[0].(*btcutil.AddressScriptHash).Hash160()[:], contractHash) {
+			bytes.Equal(addrs[0].(*diviutil.AddressScriptHash).Hash160()[:], contractHash) {
 			contractOut = i
 			break
 		}
@@ -80,7 +80,7 @@ func Redeem(contract []byte, contractTx wire.MsgTx, secret []byte, currency stri
 	fee := txrules.FeeForSerializeSize(feePerKb, redeemSize)
 	redeemTx.TxOut[0].Value = contractTx.TxOut[contractOut].Value - int64(fee)
 	if txrules.IsDustOutput(redeemTx.TxOut[0], minFeePerKb) {
-		panic(fmt.Errorf("redeem output value of %v is dust", btcutil.Amount(redeemTx.TxOut[0].Value)))
+		panic(fmt.Errorf("redeem output value of %v is dust", diviutil.Amount(redeemTx.TxOut[0].Value)))
 	}
 
 	redeemSig, redeemPubKey, err := CreateSig(redeemTx, 0, contract, recipientAddr, client)

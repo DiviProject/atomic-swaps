@@ -8,8 +8,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/btcsuite/btcd/txscript"
-	"github.com/btcsuite/btcd/wire"
+	"github.com/DiviProject/divid/txscript"
+	"github.com/DiviProject/divid/wire"
 )
 
 // Refund : The refund command

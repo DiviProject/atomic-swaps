@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/btcsuite/btcutil"
+	"github.com/DiviProject/diviutil"
 )
 
 // Participate : Participates in an atomic swap
@@ -18,7 +18,7 @@ import (
 func Participate(address string, amount float64, secretHash []byte, currency string, autopublish bool) (api.ParticipateResponse, error) {
 	network := RetrieveNetwork(currency)
 
-	decodedAddress, err := btcutil.DecodeAddress(address, network)
+	decodedAddress, err := diviutil.DecodeAddress(address, network)
 	if err != nil {
 		return api.ParticipateResponse{"", "", "", "", "", struct{}{}, nil, 51200}, err
 	}
@@ -27,12 +27,12 @@ func Participate(address string, amount float64, secretHash []byte, currency str
 		return api.ParticipateResponse{"", "", "", "", "", struct{}{}, nil, 51200}, fmt.Errorf("This address is not for this currency")
 	}
 
-	p2pkh, ok := decodedAddress.(*btcutil.AddressPubKeyHash)
+	p2pkh, ok := decodedAddress.(*diviutil.AddressPubKeyHash)
 	if !ok {
 		return api.ParticipateResponse{"", "", "", "", "", struct{}{}, nil, 51200}, fmt.Errorf("participant address is not P2PKH")
 	}
 
-	cryptoAmount, err := btcutil.NewAmount(amount)
+	cryptoAmount, err := diviutil.NewAmount(amount)
 	if err != nil {
 		return api.ParticipateResponse{"", "", "", "", "", struct{}{}, nil, 51200}, err
 	}

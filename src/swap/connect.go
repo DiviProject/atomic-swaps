@@ -8,8 +8,8 @@ import (
 
 	"atomic-swaps/src/util"
 
-	"github.com/btcsuite/btcd/chaincfg"
-	rpcd "github.com/btcsuite/btcd/rpcclient"
+	"github.com/DiviProject/divid/chaincfg"
+	rpcd "github.com/DiviProject/divid/rpcclient"
 )
 
 // RetrieveNetwork : Get the network configuration for the base or swap currency

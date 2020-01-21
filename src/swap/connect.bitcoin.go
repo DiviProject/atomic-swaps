@@ -2,7 +2,7 @@
 package swap
 
 import (
-	"github.com/btcsuite/btcd/chaincfg"
+	"github.com/DiviProject/divid/chaincfg"
 )
 
 // ReturnBitcoinConfig : Returns the Bitcoin network configuration

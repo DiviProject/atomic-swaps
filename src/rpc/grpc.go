@@ -15,7 +15,7 @@ import (
 	"atomic-swaps/src/swap"
 	"atomic-swaps/src/util"
 
-	"github.com/btcsuite/btcd/wire"
+	"github.com/DiviProject/divid/wire"
 	"google.golang.org/grpc"
 )
 

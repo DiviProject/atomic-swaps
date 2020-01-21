@@ -4,10 +4,9 @@ go 1.13
 
 require (
 	github.com/DataDog/zstd v1.4.4 // indirect
-	github.com/DiviProject/divid v0.1.0 // indirect
-	github.com/btcsuite/btcd v0.0.0-20190824003749-130ea5bddde3
-	github.com/btcsuite/btcutil v0.0.0-20190425235716-9e5f4b9a998d
-	github.com/btcsuite/btcwallet/wallet/txrules v1.0.0
+	github.com/DiviProject/divid v0.1.0
+	github.com/DiviProject/diviutil v0.1.0
+	github.com/DiviProject/diviwallet v1.1.0
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/golang/protobuf v1.3.2
 	github.com/golang/snappy v0.0.1 // indirect

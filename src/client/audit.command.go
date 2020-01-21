@@ -9,7 +9,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/btcsuite/btcd/wire"
+	"github.com/DiviProject/divid/wire"
 	"github.com/spf13/cobra"
 )
 

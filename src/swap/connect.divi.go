@@ -2,18 +2,16 @@
 package swap
 
 import (
-	"atomic-swaps/src/divichain"
-
-	"github.com/btcsuite/btcd/chaincfg"
+	"github.com/DiviProject/divid/chaincfg"
 )
 
-// ReturnDiviConfig : Returns the Bitcoin network configuration
+// ReturnDiviConfig : Returns the Divi network configuration
 func ReturnDiviConfig(network string) *chaincfg.Params {
 	if network == "mainnet" {
-		return &divichain.MainNetParams
+		return &chaincfg.MainNetParams
 	} else if network == "testnet" {
-		return &divichain.TestNet3Params
+		return &chaincfg.TestNet3Params
 	} else {
-		return &divichain.RegressionNetParams
+		return &chaincfg.RegressionNetParams
 	}
 }

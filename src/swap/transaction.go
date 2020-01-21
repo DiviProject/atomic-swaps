@@ -10,11 +10,11 @@ import (
 	"os"
 	"strings"
 
-	"github.com/btcsuite/btcd/chaincfg/chainhash"
-	rpcd "github.com/btcsuite/btcd/rpcclient"
-	"github.com/btcsuite/btcd/txscript"
-	"github.com/btcsuite/btcd/wire"
-	"github.com/btcsuite/btcutil"
+	"github.com/DiviProject/divid/chaincfg/chainhash"
+	rpcd "github.com/DiviProject/divid/rpcclient"
+	"github.com/DiviProject/divid/txscript"
+	"github.com/DiviProject/divid/wire"
+	"github.com/DiviProject/diviutil"
 )
 
 var Prompt bool = false
@@ -47,7 +47,7 @@ func SendRawTransaction(c *rpcd.Client, tx *wire.MsgTx) (*chainhash.Hash, error)
 
 // FundTransaction : Funds the transaction
 // This provides funds to mine a transaction
-func FundTransaction(c *rpcd.Client, tx *wire.MsgTx, feePerKb btcutil.Amount) (fundedTx *wire.MsgTx, fee btcutil.Amount, err error) {
+func FundTransaction(c *rpcd.Client, tx *wire.MsgTx, feePerKb diviutil.Amount) (fundedTx *wire.MsgTx, fee diviutil.Amount, err error) {
 	var buf bytes.Buffer
 	buf.Grow(tx.SerializeSize())
 	tx.Serialize(&buf)
@@ -86,7 +86,7 @@ func FundTransaction(c *rpcd.Client, tx *wire.MsgTx, feePerKb btcutil.Amount) (f
 	if err != nil {
 		return nil, 0, err
 	}
-	feeAmount, err := btcutil.NewAmount(resp.Fee)
+	feeAmount, err := diviutil.NewAmount(resp.Fee)
 	if err != nil {
 		return nil, 0, err
 	}

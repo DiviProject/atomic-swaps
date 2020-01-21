@@ -5,16 +5,16 @@ import (
 	"encoding/json"
 	"fmt"
 
-	rpcd "github.com/btcsuite/btcd/rpcclient"
-	"github.com/btcsuite/btcd/txscript"
-	"github.com/btcsuite/btcd/wire"
-	"github.com/btcsuite/btcutil"
+	rpcd "github.com/DiviProject/divid/rpcclient"
+	"github.com/DiviProject/divid/txscript"
+	"github.com/DiviProject/divid/wire"
+	"github.com/DiviProject/diviutil"
 )
 
 // RawChangeAddress : retrieves a legacy bitcoin address from the RPC
 // Please note the address retrieved must be from the current network
 // This can be configured by setting the `mainnet` `testnet` and `regtest` configuration
-func RawChangeAddress(c *rpcd.Client, currency string) (btcutil.Address, error) {
+func RawChangeAddress(c *rpcd.Client, currency string) (diviutil.Address, error) {
 	network := RetrieveNetwork(currency)
 
 	params := []json.RawMessage{[]byte(`"legacy"`)}
@@ -29,7 +29,7 @@ func RawChangeAddress(c *rpcd.Client, currency string) (btcutil.Address, error) 
 		return nil, err
 	}
 
-	addr, err := btcutil.DecodeAddress(addrStr, network)
+	addr, err := diviutil.DecodeAddress(addrStr, network)
 	if err != nil {
 		return nil, err
 	}
@@ -38,7 +38,7 @@ func RawChangeAddress(c *rpcd.Client, currency string) (btcutil.Address, error) 
 		return nil, fmt.Errorf("address %v is not intended for use on %v", addrStr, network.Name)
 	}
 
-	if _, ok := addr.(*btcutil.AddressPubKeyHash); !ok {
+	if _, ok := addr.(*diviutil.AddressPubKeyHash); !ok {
 		return nil, fmt.Errorf("getrawchangeaddress: address %v is not P2PKH", addr)
 	}
 
@@ -48,7 +48,7 @@ func RawChangeAddress(c *rpcd.Client, currency string) (btcutil.Address, error) 
 // CreateSig : Create a transaction signature
 // This create a secure signature for a transaction bytes
 // It encrypts it with the associated address' private key
-func CreateSig(tx *wire.MsgTx, idx int, pkScript []byte, addr btcutil.Address, c *rpcd.Client) (sig, pubkey []byte, err error) {
+func CreateSig(tx *wire.MsgTx, idx int, pkScript []byte, addr diviutil.Address, c *rpcd.Client) (sig, pubkey []byte, err error) {
 
 	wif, err := c.DumpPrivKey(addr)
 	if err != nil {

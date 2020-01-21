@@ -5,19 +5,19 @@ import (
 	"encoding/json"
 	"fmt"
 
-	rpcd "github.com/btcsuite/btcd/rpcclient"
-	"github.com/btcsuite/btcutil"
+	rpcd "github.com/DiviProject/divid/rpcclient"
+	"github.com/DiviProject/diviutil"
 )
 
 // CalcFeePerKb : Calcualte fee per kb of data transmitted
-func CalcFeePerKb(absoluteFee btcutil.Amount, serializeSize int) float64 {
+func CalcFeePerKb(absoluteFee diviutil.Amount, serializeSize int) float64 {
 	return float64(absoluteFee) / float64(serializeSize) / 1e5
 }
 
 // GetFees : Get the fees to create the atomic swap contract
 // These retrieves the standard fees for an atomic swap contract
 // The relay fee is the additional funds to give for mining the transaction
-func GetFees(c *rpcd.Client) (useFee, relayFee btcutil.Amount, err error) {
+func GetFees(c *rpcd.Client) (useFee, relayFee diviutil.Amount, err error) {
 	var netInfoResp struct {
 		RelayFee float64 `json:"relayfee"`
 	}
@@ -43,11 +43,11 @@ func GetFees(c *rpcd.Client) (useFee, relayFee btcutil.Amount, err error) {
 		}
 	}
 
-	relayFee, err = btcutil.NewAmount(netInfoResp.RelayFee)
+	relayFee, err = diviutil.NewAmount(netInfoResp.RelayFee)
 	if err != nil {
 		return 0, 0, err
 	}
-	payTxFee, err := btcutil.NewAmount(walletInfoResp.PayTxFee)
+	payTxFee, err := diviutil.NewAmount(walletInfoResp.PayTxFee)
 	if err != nil {
 		return 0, 0, err
 	}
@@ -70,7 +70,7 @@ func GetFees(c *rpcd.Client) (useFee, relayFee btcutil.Amount, err error) {
 
 	err = json.Unmarshal(estimateRawResp, &estimateResp)
 	if err == nil && estimateResp.FeeRate > 0 {
-		useFee, err = btcutil.NewAmount(estimateResp.FeeRate)
+		useFee, err = diviutil.NewAmount(estimateResp.FeeRate)
 		if relayFee > useFee {
 			useFee = relayFee
 		}

@@ -7,20 +7,20 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/btcsuite/btcd/chaincfg/chainhash"
-	rpcd "github.com/btcsuite/btcd/rpcclient"
-	"github.com/btcsuite/btcd/txscript"
-	"github.com/btcsuite/btcd/wire"
-	"github.com/btcsuite/btcutil"
-	"github.com/btcsuite/btcwallet/wallet/txrules"
+	"github.com/DiviProject/divid/chaincfg/chainhash"
+	rpcd "github.com/DiviProject/divid/rpcclient"
+	"github.com/DiviProject/divid/txscript"
+	"github.com/DiviProject/divid/wire"
+	"github.com/DiviProject/diviutil"
+	"github.com/DiviProject/diviwallet/wallet/txrules"
 	"golang.org/x/crypto/ripemd160"
 )
 
 // ContractArgs : The common parameters used to create the atomic swap
 // This includes the amount of funds, the address associated with the contract and the secret key
 type ContractArgs struct {
-	them       *btcutil.AddressPubKeyHash
-	amount     btcutil.Amount
+	them       *diviutil.AddressPubKeyHash
+	amount     diviutil.Amount
 	locktime   int64
 	secretHash []byte
 }
@@ -29,12 +29,12 @@ type ContractArgs struct {
 // This includes all the contract bytes, hashes and transaction data
 type BuiltContract struct {
 	contract       []byte
-	contractP2SH   btcutil.Address
+	contractP2SH   diviutil.Address
 	contractTxHash *chainhash.Hash
 	contractTx     *wire.MsgTx
-	contractFee    btcutil.Amount
+	contractFee    diviutil.Amount
 	refundTx       *wire.MsgTx
-	refundFee      btcutil.Amount
+	refundFee      diviutil.Amount
 }
 
 // BuildContract : Builds an atomic swap contract transaction
@@ -59,7 +59,7 @@ func BuildContract(c *rpcd.Client, args *ContractArgs, currency string) *BuiltCo
 		fmt.Println(err)
 	}
 
-	contractP2SH, err := btcutil.NewAddressScriptHash(contract, network)
+	contractP2SH, err := diviutil.NewAddressScriptHash(contract, network)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -107,10 +107,10 @@ func BuildContract(c *rpcd.Client, args *ContractArgs, currency string) *BuiltCo
 
 // BuildRefund : Builds the refund contract
 // In order to build the refund contract, you need to specify the refund fee and the atomic swap contract information
-func BuildRefund(c *rpcd.Client, contract []byte, contractTx *wire.MsgTx, feePerKb, minFeePerKb btcutil.Amount, currency string) (refundTx *wire.MsgTx, refundFee btcutil.Amount, err error) {
+func BuildRefund(c *rpcd.Client, contract []byte, contractTx *wire.MsgTx, feePerKb, minFeePerKb diviutil.Amount, currency string) (refundTx *wire.MsgTx, refundFee diviutil.Amount, err error) {
 	network := RetrieveNetwork(currency)
 
-	contractP2SH, err := btcutil.NewAddressScriptHash(contract, network)
+	contractP2SH, err := diviutil.NewAddressScriptHash(contract, network)
 	if err != nil {
 		return nil, 0, err
 	}
@@ -146,7 +146,7 @@ func BuildRefund(c *rpcd.Client, contract []byte, contractTx *wire.MsgTx, feePer
 		fmt.Println(err)
 	}
 
-	refundAddr, err := btcutil.NewAddressPubKeyHash(pushes.RefundHash160[:], network)
+	refundAddr, err := diviutil.NewAddressPubKeyHash(pushes.RefundHash160[:], network)
 	if err != nil {
 		return nil, 0, err
 	}
@@ -158,7 +158,7 @@ func BuildRefund(c *rpcd.Client, contract []byte, contractTx *wire.MsgTx, feePer
 	refundFee = txrules.FeeForSerializeSize(feePerKb, refundSize)
 	refundTx.TxOut[0].Value = contractTx.TxOut[contractOutPoint.Index].Value - int64(refundFee)
 	if txrules.IsDustOutput(refundTx.TxOut[0], minFeePerKb) {
-		return nil, 0, fmt.Errorf("refund output value of %v is dust", btcutil.Amount(refundTx.TxOut[0].Value))
+		return nil, 0, fmt.Errorf("refund output value of %v is dust", diviutil.Amount(refundTx.TxOut[0].Value))
 	}
 
 	txIn := wire.NewTxIn(&contractOutPoint, nil, nil)
