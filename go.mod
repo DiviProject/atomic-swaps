@@ -4,8 +4,8 @@ go 1.13
 
 require (
 	github.com/DataDog/zstd v1.4.4 // indirect
-	github.com/DiviProject/divid v0.1.0
-	github.com/DiviProject/diviutil v0.1.0
+	github.com/DiviProject/divid v1.0.0
+	github.com/DiviProject/diviutil v1.1.4
 	github.com/DiviProject/diviwallet v1.1.0
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/golang/protobuf v1.3.2

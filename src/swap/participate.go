@@ -50,7 +50,7 @@ func Participate(address string, amount float64, secretHash []byte, currency str
 
 	locktime := time.Now().Add(24 * time.Hour).Unix()
 
-	b := BuildContract(
+	b, err := BuildContract(
 		client,
 		&ContractArgs{
 			them:       p2pkh,
@@ -60,6 +60,9 @@ func Participate(address string, amount float64, secretHash []byte, currency str
 		},
 		currency,
 	)
+	if err != nil {
+		return api.ParticipateResponse{"", "", "", "", "", struct{}{}, nil, 51200}, err
+	}
 
 	refundTxHash := b.refundTx.TxHash()
 	contractFeePerKb := CalcFeePerKb(b.contractFee, b.contractTx.SerializeSize())

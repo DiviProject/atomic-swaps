@@ -58,7 +58,7 @@ func FundTransaction(c *rpcd.Client, tx *wire.MsgTx, feePerKb diviutil.Amount) (
 	param1, err := json.Marshal(struct {
 		FeeRate float64 `json:"feeRate"`
 	}{
-		FeeRate: feePerKb.ToBTC(),
+		FeeRate: feePerKb.ToDIVI(),
 	})
 	if err != nil {
 		return nil, 0, err

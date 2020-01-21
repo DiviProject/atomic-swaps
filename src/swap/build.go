@@ -40,58 +40,63 @@ type BuiltContract struct {
 // BuildContract : Builds an atomic swap contract transaction
 // You need to pass in the contract arguments (as specified in ContractArgs)
 // It will return all the contract transaction information
-func BuildContract(c *rpcd.Client, args *ContractArgs, currency string) *BuiltContract {
+func BuildContract(c *rpcd.Client, args *ContractArgs, currency string) (*BuiltContract, error) {
 	network := RetrieveNetwork(currency)
 
 	RefundAddr, err := RawChangeAddress(c, currency)
 	if err != nil {
-		fmt.Println(err)
+		return nil, err
 	}
+
 	RefundAddrHash, ok := RefundAddr.(interface {
 		Hash160() *[ripemd160.Size]byte
 	})
+
 	if !ok {
-		fmt.Println("unable to create hash160 from change address")
+		return nil, fmt.Errorf("unable to create hash160 from change address")
 	}
 
 	contract, err := AtomicSwap(RefundAddrHash.Hash160(), args.them.Hash160(), args.locktime, args.secretHash)
 	if err != nil {
-		fmt.Println(err)
+		return nil, err
 	}
 
 	contractP2SH, err := diviutil.NewAddressScriptHash(contract, network)
 	if err != nil {
-		fmt.Println(err)
+		return nil, err
 	}
+
 	contractP2SHPkScript, err := txscript.PayToAddrScript(contractP2SH)
 	if err != nil {
-		fmt.Println(err)
+		return nil, err
 	}
 
 	feePerKb, minFeePerKb, err := GetFees(c)
 	if err != nil {
-		fmt.Println(err)
+		return nil, err
 	}
 
 	unsignedContract := wire.NewMsgTx(util.TXVersion)
 	unsignedContract.AddTxOut(wire.NewTxOut(int64(args.amount), contractP2SHPkScript))
 	unsignedContract, contractFee, err := FundTransaction(c, unsignedContract, feePerKb)
 	if err != nil {
-		fmt.Println(err)
+		return nil, err
 	}
+
 	contractTx, complete, err := SignTransaction(c, unsignedContract)
 	if err != nil {
-		fmt.Println(err)
+		return nil, err
 	}
+
 	if !complete {
-		fmt.Println("signrawtransaction: failed to completely sign contract transaction")
+		return nil, fmt.Errorf("signrawtransaction: failed to completely sign contract transaction")
 	}
 
 	contractTxHash := contractTx.TxHash()
 
 	refundTx, refundFee, err := BuildRefund(c, contract, contractTx, feePerKb, minFeePerKb, currency)
 	if err != nil {
-		fmt.Println(err)
+		return nil, err
 	}
 
 	return &BuiltContract{
@@ -102,7 +107,7 @@ func BuildContract(c *rpcd.Client, args *ContractArgs, currency string) *BuiltCo
 		contractFee,
 		refundTx,
 		refundFee,
-	}
+	}, nil
 }
 
 // BuildRefund : Builds the refund contract

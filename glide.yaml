@@ -1,29 +1,46 @@
-package: atomic-swaps
-ignore:
-- atomic-swaps
-- google.golang.org/grpc/status
+package: github.com/DiviProject/atomic-swaps
 import:
-- package: google.golang.org/grpc
-  version: 1.0.0
-- package: github.com/golang/protobuf
-  version: 1.0.0
+- package: atomic-swaps/src/api
+- package: atomic-swaps/src/client
+- package: atomic-swaps/src/db
+- package: atomic-swaps/src/rpc
+- package: atomic-swaps/src/swap
+- package: atomic-swaps/src/util
+- package: github.com/DiviProject/divid
   subpackages:
-  - protoc-gen-go
-- package: github.com/btcsuite/btcd
-  subpackages:
-  - txscript
-  - wire
   - chaincfg
   - chaincfg/chainhash
   - rpcclient
-- package: github.com/btcsuite/btcutil
-- package: github.com/btcsuite/btcwallet
+  - txscript
+  - wire
+- package: github.com/DiviProject/diviutil
+- package: github.com/DiviProject/diviwallet
   subpackages:
   - wallet/txrules
-- package: github.com/spf13/cobra
-  version: 0.0.5
+- package: github.com/golang/protobuf
   subpackages:
-  - cobra
-- package: github.com/spf13/pflag
-  version: 1.0.5
-
+  - proto
+- package: github.com/grpc-ecosystem/grpc-gateway
+  subpackages:
+  - runtime
+  - utilities
+- package: github.com/spf13/cobra
+- package: go.mongodb.org/mongo-driver
+  subpackages:
+  - mongo
+  - mongo/options
+  - mongo/readpref
+- package: golang.org/x/crypto
+  subpackages:
+  - ripemd160
+- package: google.golang.org/genproto
+  subpackages:
+  - googleapis/api/annotations
+- package: google.golang.org/grpc
+  subpackages:
+  - codes
+  - grpclog
+  - status
+- package: gopkg.in/mgo.v2
+  subpackages:
+  - bson

@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/DiviProject/divid/chaincfg/chainhash"
 	"github.com/DiviProject/diviutil"
 )
 
@@ -53,7 +54,7 @@ func Initiate(address string, amount float64, currency string, autopublish bool)
 	secretHash := util.GenerateSHA256(secret[:])
 	locktime := time.Now().Add(48 * time.Hour).Unix()
 
-	b := BuildContract(
+	b, err := BuildContract(
 		client,
 		&ContractArgs{
 			them:       p2pkh,
@@ -64,24 +65,39 @@ func Initiate(address string, amount float64, currency string, autopublish bool)
 		currency,
 	)
 
-	refundTxHash := b.refundTx.TxHash()
+	if err != nil {
+		return api.InitiateResponse{"", "", "", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, err
+	}
+
 	contractFeePerKb := CalcFeePerKb(b.contractFee, b.contractTx.SerializeSize())
-	refundFeePerKb := CalcFeePerKb(b.refundFee, b.refundTx.SerializeSize())
+
+	var refundTxHash chainhash.Hash
+	var refundFeePerKb float64
+	var refundBuf bytes.Buffer
+
+	if b.refundTx != nil {
+		refundTxHash = b.refundTx.TxHash()
+		refundFeePerKb = CalcFeePerKb(b.refundFee, b.refundTx.SerializeSize())
+
+		refundBuf.Grow(b.refundTx.SerializeSize())
+		b.refundTx.Serialize(&refundBuf)
+	}
 
 	fmt.Printf("Secret:      %x\n", secret)
 	fmt.Printf("Secret hash: %x\n\n", secretHash)
 	fmt.Printf("Contract fee: %v (%0.8f BTC/kB)\n", b.contractFee, contractFeePerKb)
 	fmt.Printf("Refund fee:   %v (%0.8f BTC/kB)\n\n", b.refundFee, refundFeePerKb)
 	fmt.Printf("Contract (%v):\n", b.contractP2SH)
+
 	fmt.Printf("%x\n\n", b.contract)
+
 	var contractBuf bytes.Buffer
 	contractBuf.Grow(b.contractTx.SerializeSize())
 	b.contractTx.Serialize(&contractBuf)
+
 	fmt.Printf("Contract transaction (%v):\n", b.contractTxHash)
 	fmt.Printf("%x\n\n", contractBuf.Bytes())
-	var refundBuf bytes.Buffer
-	refundBuf.Grow(b.refundTx.SerializeSize())
-	b.refundTx.Serialize(&refundBuf)
+
 	fmt.Printf("Refund transaction (%v):\n", &refundTxHash)
 	fmt.Printf("%x\n\n", refundBuf.Bytes())
 
