@@ -67,7 +67,7 @@ func Redeem(contract []byte, contractTx wire.MsgTx, secret []byte, currency stri
 		Index: uint32(contractOut),
 	}
 
-	feePerKb, minFeePerKb, err := GetFees(client)
+	feePerKb, minFeePerKb, err := GetFees(client, currency)
 	if err != nil {
 		return api.RedeemResponse{"", "", struct{}{}, nil, 51200}, err
 	}

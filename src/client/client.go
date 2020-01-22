@@ -53,6 +53,7 @@ func CLI() {
 	}
 
 	db.Init(util.Configuration.MongoURL)
+	go db.Schedule()
 	go db.StartSchedule(db.Schedule)
 
 	// Add usable commands

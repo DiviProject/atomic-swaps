@@ -61,7 +61,7 @@ func (s *Participate) Participate(ctx context.Context, message *api.ParticipateR
 	hash, err := hex.DecodeString(message.GetHash())
 
 	if err != nil {
-		return &api.ParticipateResponse{"", "", "", "", "", struct{}{}, nil, 51200}, err
+		return &api.ParticipateResponse{"", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, err
 	}
 
 	response, err := swap.Participate(address, amount, hash, currency, true)
@@ -213,7 +213,7 @@ func (s *Swapstatus) Swapstatus(ctx context.Context, message *api.SwapStatusRequ
 	swapID := message.GetId()
 	SwapDocument, err := db.Find(swapID)
 
-	return &api.SwapStatusResponse{SwapDocument.Status, SwapDocument.BaseStatus, SwapDocument.SwapStatus, SwapDocument.BaseAddress, SwapDocument.SwapAddress, SwapDocument.BaseContract, SwapDocument.SwapContract, SwapDocument.BaseTransaction, SwapDocument.SwapTransaction, struct{}{}, nil, 51200}, err
+	return &api.SwapStatusResponse{SwapDocument.Status, SwapDocument.BaseStatus, SwapDocument.SwapStatus, SwapDocument.BaseAddress, SwapDocument.SwapAddress, SwapDocument.BaseContract, SwapDocument.SwapContract, SwapDocument.BaseTransaction, SwapDocument.SwapTransaction, SwapDocument.BaseRedeemTransaction, SwapDocument.SwapRedeemTransaction, struct{}{}, nil, 51200}, err
 }
 
 // StartGRPCServer : Starts a fresh GRPC Server on TCP

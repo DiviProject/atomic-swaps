@@ -9,6 +9,8 @@ github.com/DiviProject/divid v0.17.0 h1:VqLXqztJ6IFP/eUbvpKPJvqixkIz0sWOQSnSZj3W
 github.com/DiviProject/divid v0.17.0/go.mod h1:DvRvsiCEVt9uOXvUNZua/jIYq86gSS9Yu9E41/vuiXk=
 github.com/DiviProject/divid v1.0.0 h1:17lHeWx8iR9YKCdaq8uhHM/wtBSznLxlCjL+Si4cS/g=
 github.com/DiviProject/divid v1.0.0/go.mod h1:osT2obooO5pdrKkPbUfm/SidxqFh98C/VBMHe+vl9CU=
+github.com/DiviProject/divid v1.1.0 h1:sUKF2nJCMOG3zRV6pWrYnQjIVFsc/IL+AVNGn4RT5wo=
+github.com/DiviProject/divid v1.1.0/go.mod h1:osT2obooO5pdrKkPbUfm/SidxqFh98C/VBMHe+vl9CU=
 github.com/DiviProject/divilog v0.0.0-20200116200928-9b9fd20cb411 h1:52zfG6MGPchFErp3hQHIvz7+QLEdkIZS2r/jvhW1XNk=
 github.com/DiviProject/divilog v0.0.0-20200116200928-9b9fd20cb411/go.mod h1:Ol6TdBO4rjO08W83C+Q89DJSvwcBBPDi2QURo7gDpf8=
 github.com/DiviProject/divilog v0.1.0 h1:8WJ07USHeLTBQiYeEKDD2NkFKHYoHwuuKr9YNwVFyLs=

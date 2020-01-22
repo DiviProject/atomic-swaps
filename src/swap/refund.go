@@ -31,7 +31,7 @@ func Refund(contract []byte, contractTx wire.MsgTx, currency string, autopublish
 		return api.RefundResponse{"", "", struct{}{}, nil, 51200}, errors.New("contract is not an atomic swap script recognized by this tool")
 	}
 
-	feePerKb, minFeePerKb, err := GetFees(client)
+	feePerKb, minFeePerKb, err := GetFees(client, currency)
 	if err != nil {
 		return api.RefundResponse{"", "", struct{}{}, nil, 51200}, err
 	}

@@ -18,25 +18,33 @@ import (
 // This address needs to be associated with the RPC Client
 func Initiate(address string, amount float64, currency string, autopublish bool) (api.InitiateResponse, error) {
 	network := RetrieveNetwork(currency)
-
 	decodedAddress, err := diviutil.DecodeAddress(address, network)
+
 	if err != nil {
 		return api.InitiateResponse{"", "", "", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, err
 	}
 
+	fmt.Println("Decode OK")
+
 	if !decodedAddress.IsForNet(network) {
 		return api.InitiateResponse{"", "", "", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, fmt.Errorf("This address is not for this currency")
 	}
+
+	fmt.Println("Network OK")
 
 	p2pkh, ok := decodedAddress.(*diviutil.AddressPubKeyHash)
 	if !ok {
 		return api.InitiateResponse{"", "", "", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, fmt.Errorf("participant address is not P2PKH")
 	}
 
+	fmt.Println("P2PKH OK")
+
 	cryptoAmount, err := diviutil.NewAmount(amount)
 	if err != nil {
 		return api.InitiateResponse{"", "", "", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, err
 	}
+
+	fmt.Println("Amount OK")
 
 	client := GetRPCClient(currency)
 
@@ -50,6 +58,8 @@ func Initiate(address string, amount float64, currency string, autopublish bool)
 	if err != nil {
 		return api.InitiateResponse{"", "", "", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, err
 	}
+
+	fmt.Println("Secret OK")
 
 	secretHash := util.GenerateSHA256(secret[:])
 	locktime := time.Now().Add(48 * time.Hour).Unix()

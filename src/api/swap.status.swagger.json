@@ -70,6 +70,12 @@
         },
         "swapTransaction": {
           "type": "string"
+        },
+        "baseRedeemTransaction": {
+          "type": "string"
+        },
+        "swapRedeemTransaction": {
+          "type": "string"
         }
       }
     }

@@ -40,7 +40,7 @@ describe(`Atomic Swap CLI testing suite`, () => {
     it(`Should initiate an atomic swap with a Bitcoin regtest node`, async () => {
         try {
             const { stderr, stdout } = await exec(BP, ['-r', '-u', 'bitcoin', '-p', 'bitcoin', '--rpc-port', '1338', '-y', 'initiate', BitcoinAddress, '1.0']);
-            
+
             tx.secret = stdout.split('Secret:')[1].split('\n')[0].trim();
             tx.secretHash = stdout.split('Secret hash:')[1].split('\n')[0].trim();
             tx.contractAddress = stdout.split('Contract (')[1].split('):')[0].trim();
@@ -73,7 +73,7 @@ describe(`Atomic Swap CLI testing suite`, () => {
     it(`Should initiate another atomic swap with a Bitcoin regtest node`, async () => {
         try {
             const { stderr, stdout } = await exec(BP, ['-r', '-u', 'bitcoin', '-p', 'bitcoin', '--rpc-port', '1338', '-y', 'initiate', BitcoinAddress, '1.0']);
-            
+
             tx.secret = stdout.split('Secret:')[1].split('\n')[0].trim();
             tx.secretHash = stdout.split('Secret hash:')[1].split('\n')[0].trim();
             tx.contractAddress = stdout.split('Contract (')[1].split('):')[0].trim();

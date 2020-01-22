@@ -16,29 +16,32 @@ import (
 // You also need to provide the secret from the original atomic swap contract
 // You also need to be connected to an RPC client with a valid address and amount
 func Participate(address string, amount float64, secretHash []byte, currency string, autopublish bool) (api.ParticipateResponse, error) {
+	fmt.Println(address)
+	fmt.Println(currency)
+
 	network := RetrieveNetwork(currency)
 
 	decodedAddress, err := diviutil.DecodeAddress(address, network)
 	if err != nil {
-		return api.ParticipateResponse{"", "", "", "", "", struct{}{}, nil, 51200}, err
+		return api.ParticipateResponse{"", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, err
 	}
 
 	if !decodedAddress.IsForNet(network) {
-		return api.ParticipateResponse{"", "", "", "", "", struct{}{}, nil, 51200}, fmt.Errorf("This address is not for this currency")
+		return api.ParticipateResponse{"", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, fmt.Errorf("This address is not for this currency")
 	}
 
 	p2pkh, ok := decodedAddress.(*diviutil.AddressPubKeyHash)
 	if !ok {
-		return api.ParticipateResponse{"", "", "", "", "", struct{}{}, nil, 51200}, fmt.Errorf("participant address is not P2PKH")
+		return api.ParticipateResponse{"", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, fmt.Errorf("participant address is not P2PKH")
 	}
 
 	cryptoAmount, err := diviutil.NewAmount(amount)
 	if err != nil {
-		return api.ParticipateResponse{"", "", "", "", "", struct{}{}, nil, 51200}, err
+		return api.ParticipateResponse{"", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, err
 	}
 
 	if len(secretHash) != sha256.Size {
-		return api.ParticipateResponse{"", "", "", "", "", struct{}{}, nil, 51200}, fmt.Errorf("secret hash has wrong size")
+		return api.ParticipateResponse{"", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, fmt.Errorf("secret hash has wrong size")
 	}
 
 	client := GetRPCClient(currency)
@@ -61,7 +64,7 @@ func Participate(address string, amount float64, secretHash []byte, currency str
 		currency,
 	)
 	if err != nil {
-		return api.ParticipateResponse{"", "", "", "", "", struct{}{}, nil, 51200}, err
+		return api.ParticipateResponse{"", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, err
 	}
 
 	refundTxHash := b.refundTx.TxHash()
@@ -89,8 +92,11 @@ func Participate(address string, amount float64, secretHash []byte, currency str
 		b.contractFee.String(),
 		b.refundFee.String(),
 		b.contractP2SH.String(),
+		fmt.Sprintf("%x", b.contract),
 		b.contractTxHash.String(),
+		fmt.Sprintf("%x", contractBuf.Bytes()),
 		refundTxHash.String(),
+		fmt.Sprintf("%x", refundBuf.Bytes()),
 		struct{}{},
 		nil,
 		51200,

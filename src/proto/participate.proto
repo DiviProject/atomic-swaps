@@ -14,8 +14,11 @@ message ParticipateResponse {
   string contractFee = 1;
   string refundFee = 2;
   string contract = 3;
-  string contractTransaction = 4;
-  string refundTransaction = 5;
+  string contractBytes = 4;
+  string contractTransaction = 5;
+  string contractTransactionBytes = 6;
+  string refundTransaction = 7;
+  string refundTransactionBytes = 8;
 }
 
 service Participate {

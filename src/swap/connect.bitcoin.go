@@ -2,16 +2,17 @@
 package swap
 
 import (
+	"atomic-swaps/src/chains"
 	"github.com/DiviProject/divid/chaincfg"
 )
 
 // ReturnBitcoinConfig : Returns the Bitcoin network configuration
 func ReturnBitcoinConfig(network string) *chaincfg.Params {
 	if network == "mainnet" {
-		return &chaincfg.MainNetParams
+		return &chains.MainNetParams
 	} else if network == "testnet" {
-		return &chaincfg.TestNet3Params
+		return &chains.TestNet3Params
 	} else {
-		return &chaincfg.RegressionNetParams
+		return &chains.RegressionNetParams
 	}
 }

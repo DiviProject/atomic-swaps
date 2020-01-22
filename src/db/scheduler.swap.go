@@ -27,25 +27,27 @@ func ScheduleSwap(baseAmount string, baseAddress string, swapAmount string, swap
 	}
 
 	Document.Status = "pending"
-	Document.Secret = init.GetSecretHash()
 	Document.BaseStatus = "pending"
 	Document.SwapStatus = "pending"
+	Document.Secret = init.GetSecret()
 	Document.BaseAmount = baseAmount
 	Document.BaseAddress = baseAddress
 	Document.SwapAmount = swapAmount
 	Document.SwapAddress = swapAddress
 	Document.BaseContract = init.GetContractAddress()
 	Document.SwapContract = participate.GetContract()
+	Document.BaseContractBytes = init.GetContractBytes()
+	Document.SwapContractBytes = participate.GetContractBytes()
 	Document.BaseTransaction = init.GetContractTransaction()
 	Document.SwapTransaction = participate.GetContractTransaction()
-	Document.BaseTransactionBytes = init.GetContractBytes()
-	Document.SwapTransactionBytes = init.GetContractBytes()
+	Document.BaseTransactionBytes = init.GetContractTransactionBytes()
+	Document.SwapTransactionBytes = participate.GetContractTransactionBytes()
 	Document.BaseRefund = init.GetContractRefund()
 	Document.SwapRefund = participate.GetRefundTransaction()
 	Document.BaseFee = init.GetContractFee()
 	Document.SwapFee = participate.GetContractFee()
-	Document.BaseFee = init.GetRefundFee()
-	Document.SwapFee = participate.GetRefundFee()
+	Document.BaseRefundFee = init.GetRefundFee()
+	Document.SwapRefundFee = participate.GetRefundFee()
 
 	DocumentID, err := Insert(Document)
 
@@ -53,5 +55,5 @@ func ScheduleSwap(baseAmount string, baseAddress string, swapAmount string, swap
 		return "", err
 	}
 
-	return DocumentID.(string), nil
+	return DocumentID, nil
 }

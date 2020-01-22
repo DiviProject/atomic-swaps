@@ -4,8 +4,10 @@ package db
 import (
 	"atomic-swaps/src/util"
 	"context"
+	"fmt"
 	"time"
 
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
@@ -14,7 +16,7 @@ import (
 
 // AtomicSwap : The schema to keep track of atomic swaps and their status
 type AtomicSwap struct {
-	_id                   string
+	_id                   primitive.ObjectID
 	Status                string
 	Secret                string
 	BaseStatus            string
@@ -23,6 +25,8 @@ type AtomicSwap struct {
 	SwapAddress           string
 	BaseContract          string
 	SwapContract          string
+	BaseContractBytes     string
+	SwapContractBytes     string
 	BaseTransaction       string
 	SwapTransaction       string
 	BaseTransactionBytes  string
@@ -56,18 +60,21 @@ func Ping(client *mongo.Client) error {
 }
 
 // Insert : Insert a document into MongoDB
-func Insert(data AtomicSwap) (interface{}, error) {
+func Insert(data AtomicSwap) (string, error) {
 	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
 	collection := util.MongoDB.Database(util.Configuration.Database).Collection(util.MongoTable)
 
 	res, err := collection.InsertOne(ctx, bson.M{
 		"Status":                data.Status,
+		"Secret":                data.Secret,
 		"BaseStatus":            data.BaseStatus,
 		"SwapStatus":            data.SwapStatus,
 		"BaseAddress":           data.BaseAddress,
 		"SwapAddress":           data.SwapAddress,
 		"BaseContract":          data.BaseContract,
 		"SwapContract":          data.SwapContract,
+		"BaseContractBytes":     data.BaseContractBytes,
+		"SwapContractBytes":     data.SwapContractBytes,
 		"BaseTransaction":       data.BaseTransaction,
 		"SwapTransaction":       data.SwapTransaction,
 		"BaseTransactionBytes":  data.BaseTransactionBytes,
@@ -84,7 +91,7 @@ func Insert(data AtomicSwap) (interface{}, error) {
 		"SwapRefundFee":         data.SwapFee,
 	})
 
-	return res.InsertedID, err
+	return res.InsertedID.(primitive.ObjectID).String(), err
 }
 
 // Update : Update a document in MongoDB
@@ -92,34 +99,45 @@ func Update(data AtomicSwap) error {
 	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
 	collection := util.MongoDB.Database(util.Configuration.Database).Collection(util.MongoTable)
 
-	_, err := collection.UpdateOne(ctx,
+	fmt.Println("Data ID", data._id)
+
+	res, err := collection.UpdateOne(ctx,
+		bson.M{"_id": data._id},
 		bson.M{
-			"_id": data._id,
-		},
-		bson.M{
-			"Status":                data.Status,
-			"BaseStatus":            data.BaseStatus,
-			"SwapStatus":            data.SwapStatus,
-			"BaseAddress":           data.BaseAddress,
-			"SwapAddress":           data.SwapAddress,
-			"BaseContract":          data.BaseContract,
-			"SwapContract":          data.SwapContract,
-			"BaseTransaction":       data.BaseTransaction,
-			"SwapTransaction":       data.SwapTransaction,
-			"BaseTransactionBytes":  data.BaseTransactionBytes,
-			"SwapTransactionBytes":  data.SwapTransactionBytes,
-			"BaseRedeemTransaction": data.BaseRedeemTransaction,
-			"SwapRedeemTransaction": data.SwapRedeemTransaction,
-			"BaseRefund":            data.BaseRefund,
-			"SwapRefund":            data.SwapRefund,
-			"BaseAmount":            data.BaseAmount,
-			"SwapAmount":            data.SwapAmount,
-			"BaseFee":               data.BaseFee,
-			"SwapFee":               data.SwapFee,
-			"BaseRefundFee":         data.BaseFee,
-			"SwapRefundFee":         data.SwapFee,
+			"$set": bson.M{
+				"Status":                data.Status,
+				"BaseStatus":            data.BaseStatus,
+				"SwapStatus":            data.SwapStatus,
+				"BaseAddress":           data.BaseAddress,
+				"SwapAddress":           data.SwapAddress,
+				"BaseContract":          data.BaseContract,
+				"SwapContract":          data.SwapContract,
+				"BaseContractBytes":     data.BaseContractBytes,
+				"SwapContractBytes":     data.SwapContractBytes,
+				"BaseTransaction":       data.BaseTransaction,
+				"SwapTransaction":       data.SwapTransaction,
+				"BaseTransactionBytes":  data.BaseTransactionBytes,
+				"SwapTransactionBytes":  data.SwapTransactionBytes,
+				"BaseRedeemTransaction": data.BaseRedeemTransaction,
+				"SwapRedeemTransaction": data.SwapRedeemTransaction,
+				"BaseRefund":            data.BaseRefund,
+				"SwapRefund":            data.SwapRefund,
+				"BaseAmount":            data.BaseAmount,
+				"SwapAmount":            data.SwapAmount,
+				"BaseFee":               data.BaseFee,
+				"SwapFee":               data.SwapFee,
+				"BaseRefundFee":         data.BaseFee,
+				"SwapRefundFee":         data.SwapFee,
+			},
 		},
 	)
+
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+
+	fmt.Println("Updated", res.MatchedCount, res.ModifiedCount)
 
 	return err
 }
@@ -130,7 +148,13 @@ func Find(id string) (AtomicSwap, error) {
 	collection := util.MongoDB.Database(util.Configuration.Database).Collection(util.MongoTable)
 
 	var res AtomicSwap
-	err := collection.FindOne(ctx, bson.M{"_id": id}).Decode(&res)
+
+	OID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return res, err
+	}
+
+	err = collection.FindOne(ctx, bson.M{"_id": OID}).Decode(&res)
 
 	return res, err
 }
@@ -154,17 +178,24 @@ func FindPending() ([]AtomicSwap, error) {
 		var doc bson.M
 		err := cur.Decode(&doc)
 
+		ObjectID := doc["_id"].(primitive.ObjectID)
+
 		var result AtomicSwap
-		result._id = doc["_id"].(string)
+		result._id = ObjectID
 		result.Status = doc["Status"].(string)
+		result.Secret = doc["Secret"].(string)
 		result.BaseStatus = doc["BaseStatus"].(string)
 		result.SwapStatus = doc["SwapStatus"].(string)
 		result.BaseAddress = doc["BaseAddress"].(string)
 		result.SwapAddress = doc["SwapAddress"].(string)
 		result.BaseContract = doc["BaseContract"].(string)
 		result.SwapContract = doc["SwapContract"].(string)
+		result.BaseContractBytes = doc["BaseContractBytes"].(string)
+		result.SwapContractBytes = doc["SwapContractBytes"].(string)
 		result.BaseTransaction = doc["BaseTransaction"].(string)
 		result.SwapTransaction = doc["SwapTransaction"].(string)
+		result.BaseTransactionBytes = doc["BaseTransactionBytes"].(string)
+		result.SwapTransactionBytes = doc["SwapTransactionBytes"].(string)
 		result.BaseRedeemTransaction = doc["BaseRedeemTransaction"].(string)
 		result.SwapRedeemTransaction = doc["SwapRedeemTransaction"].(string)
 		result.BaseRefund = doc["BaseRefund"].(string)

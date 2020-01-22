@@ -21,14 +21,23 @@ func RetrieveNetwork(currency string) *chaincfg.Params {
 			return ReturnDiviConfig(util.Configuration.BaseRPCNetwork)
 		}
 	} else {
-		if util.Configuration.BaseCurrency == "bitcoin" || util.Configuration.BaseCurrency == "btc" {
+		if util.Configuration.SwapCurrency == "bitcoin" || util.Configuration.SwapCurrency == "btc" {
 			return ReturnBitcoinConfig(util.Configuration.SwapRPCNetwork)
-		} else if util.Configuration.BaseCurrency == "Divi" || util.Configuration.BaseCurrency == "divi" {
+		} else if util.Configuration.SwapCurrency == "Divi" || util.Configuration.SwapCurrency == "divi" {
 			return ReturnDiviConfig(util.Configuration.SwapRPCNetwork)
 		}
 	}
 
 	return nil
+}
+
+// RetrieveCurrencyName : Get the name of the currency
+func RetrieveCurrencyName(currency string) string {
+	if currency == "base" {
+		return util.Configuration.BaseCurrency
+	} else {
+		return util.Configuration.SwapCurrency
+	}
 }
 
 // ConfigureAddress : normalizes the address and port

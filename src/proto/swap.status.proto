@@ -17,6 +17,8 @@ message SwapStatusResponse {
     string swapContract = 7;
     string baseTransaction = 8;
     string swapTransaction = 9;
+    string baseRedeemTransaction = 10;
+    string swapRedeemTransaction = 11;
 }
 
 service SwapStatus {

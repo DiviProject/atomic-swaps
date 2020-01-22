@@ -17,7 +17,7 @@ func CalcFeePerKb(absoluteFee diviutil.Amount, serializeSize int) float64 {
 // GetFees : Get the fees to create the atomic swap contract
 // These retrieves the standard fees for an atomic swap contract
 // The relay fee is the additional funds to give for mining the transaction
-func GetFees(c *rpcd.Client) (useFee, relayFee diviutil.Amount, err error) {
+func GetFees(c *rpcd.Client, currency string) (useFee, relayFee diviutil.Amount, err error) {
 	var netInfoResp struct {
 		RelayFee float64 `json:"relayfee"`
 	}
@@ -62,8 +62,10 @@ func GetFees(c *rpcd.Client) (useFee, relayFee diviutil.Amount, err error) {
 		return maxFee, relayFee, nil
 	}
 
+	feeRPCMethod := "estimatesmartfee"
+
 	params := []json.RawMessage{[]byte("6")}
-	estimateRawResp, err := c.RawRequest("estimatesmartfee", params)
+	estimateRawResp, err := c.RawRequest(feeRPCMethod, params)
 	if err != nil {
 		return 0, 0, err
 	}

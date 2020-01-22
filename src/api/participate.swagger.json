@@ -73,10 +73,19 @@
         "contract": {
           "type": "string"
         },
+        "contractBytes": {
+          "type": "string"
+        },
         "contractTransaction": {
           "type": "string"
         },
+        "contractTransactionBytes": {
+          "type": "string"
+        },
         "refundTransaction": {
+          "type": "string"
+        },
+        "refundTransactionBytes": {
           "type": "string"
         }
       }
