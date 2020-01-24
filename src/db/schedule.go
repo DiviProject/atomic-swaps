@@ -57,15 +57,11 @@ func Schedule() {
 					continue
 				}
 
-				fmt.Println("Base Contract OK")
-
 				baseTransactionBytes, err := hex.DecodeString(s.BaseTransactionBytes)
 				if err != nil {
 					fmt.Println(err)
 					continue
 				}
-
-				fmt.Println("Base TX OK")
 
 				var baseContractTransaction wire.MsgTx
 				err = baseContractTransaction.Deserialize(bytes.NewReader(baseTransactionBytes))
@@ -74,23 +70,17 @@ func Schedule() {
 					continue
 				}
 
-				fmt.Println("Base TX Bytes OK")
-
 				swapContract, err := hex.DecodeString(s.SwapContractBytes)
 				if err != nil {
 					fmt.Println(err)
 					continue
 				}
 
-				fmt.Println("Swap Contract OK")
-
 				swapTransactionBytes, err := hex.DecodeString(s.SwapTransactionBytes)
 				if err != nil {
 					fmt.Println(err)
 					continue
 				}
-
-				fmt.Println("Swap TX OK")
 
 				var swapContractTransaction wire.MsgTx
 				err = swapContractTransaction.Deserialize(bytes.NewReader(swapTransactionBytes))
@@ -99,15 +89,11 @@ func Schedule() {
 					continue
 				}
 
-				fmt.Println("Swap TX Bytes OK")
-
 				baseSecret, err := hex.DecodeString(s.Secret)
 				if err != nil {
 					fmt.Println(err)
 					continue
 				}
-
-				fmt.Println("Secret OK")
 
 				baseResponse, err := swap.Redeem(baseContract, baseContractTransaction, baseSecret, "base", true)
 
@@ -116,16 +102,12 @@ func Schedule() {
 					continue
 				}
 
-				fmt.Println("Base Redeem OK")
-
 				swapResponse, err := swap.Redeem(swapContract, swapContractTransaction, baseSecret, "swap", true)
 
 				if err != nil {
 					fmt.Println(err)
 					continue
 				}
-
-				fmt.Println("Swap Redeem OK")
 
 				s.Status = "complete"
 				s.BaseStatus = "complete"

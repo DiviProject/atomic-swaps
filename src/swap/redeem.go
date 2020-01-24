@@ -99,9 +99,12 @@ func Redeem(contract []byte, contractTx wire.MsgTx, secret []byte, currency stri
 	var buf bytes.Buffer
 	buf.Grow(redeemTx.SerializeSize())
 	redeemTx.Serialize(&buf)
-	fmt.Printf("Redeem fee: %v (%0.8f BTC/kB)\n\n", fee, redeemFeePerKb)
-	fmt.Printf("Redeem transaction (%v):\n", &redeemTxHash)
-	fmt.Printf("%x\n\n", buf.Bytes())
+
+	if autopublish == false {
+		fmt.Printf("Redeem fee: %v (%0.8f BTC/kB)\n\n", fee, redeemFeePerKb)
+		fmt.Printf("Redeem transaction (%v):\n", &redeemTxHash)
+		fmt.Printf("%x\n\n", buf.Bytes())
+	}
 
 	if util.Verify {
 		e, err := txscript.NewEngine(contractTx.TxOut[contractOutPoint.Index].PkScript,

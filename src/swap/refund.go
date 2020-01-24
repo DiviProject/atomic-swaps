@@ -47,9 +47,11 @@ func Refund(contract []byte, contractTx wire.MsgTx, currency string, autopublish
 
 	refundFeePerKb := CalcFeePerKb(refundFee, refundTx.SerializeSize())
 
-	fmt.Printf("Refund fee: %v (%0.8f BTC/kB)\n\n", refundFee, refundFeePerKb)
-	fmt.Printf("Refund transaction (%v):\n", &refundTxHash)
-	fmt.Printf("%x\n\n", buf.Bytes())
+	if autopublish == false {
+		fmt.Printf("Refund fee: %v (%0.8f BTC/kB)\n\n", refundFee, refundFeePerKb)
+		fmt.Printf("Refund transaction (%v):\n", &refundTxHash)
+		fmt.Printf("%x\n\n", buf.Bytes())
+	}
 
 	PromptPublishTx(client, refundTx, "refund", autopublish)
 

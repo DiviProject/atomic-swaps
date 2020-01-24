@@ -60,24 +60,26 @@ func Audit(contract []byte, contractTx wire.MsgTx, currency string, autopublish 
 		return api.AuditResponse{"", "", "", "", "", "", struct{}{}, nil, 51200}, err
 	}
 
-	fmt.Printf("Contract address:        %v\n", contractAddr)
-	fmt.Printf("Contract value:          %v\n", diviutil.Amount(contractTx.TxOut[contractOut].Value))
-	fmt.Printf("Recipient address:       %v\n", recipientAddr)
-	fmt.Printf("Author's refund address: %v\n\n", refundAddr)
+	if autopublish == false {
+		fmt.Printf("Contract address:        %v\n", contractAddr)
+		fmt.Printf("Contract value:          %v\n", diviutil.Amount(contractTx.TxOut[contractOut].Value))
+		fmt.Printf("Recipient address:       %v\n", recipientAddr)
+		fmt.Printf("Author's refund address: %v\n\n", refundAddr)
 
-	fmt.Printf("Secret hash: %x\n\n", pushes.SecretHash[:])
+		fmt.Printf("Secret hash: %x\n\n", pushes.SecretHash[:])
 
-	if pushes.LockTime >= int64(txscript.LockTimeThreshold) {
-		t := time.Unix(pushes.LockTime, 0)
-		fmt.Printf("Locktime: %v\n", t.UTC())
-		reachedAt := time.Until(t).Truncate(time.Second)
-		if reachedAt > 0 {
-			fmt.Printf("Locktime reached in %v\n", reachedAt)
+		if pushes.LockTime >= int64(txscript.LockTimeThreshold) {
+			t := time.Unix(pushes.LockTime, 0)
+			fmt.Printf("Locktime: %v\n", t.UTC())
+			reachedAt := time.Until(t).Truncate(time.Second)
+			if reachedAt > 0 {
+				fmt.Printf("Locktime reached in %v\n", reachedAt)
+			} else {
+				fmt.Printf("Contract refund time lock has expired\n")
+			}
 		} else {
-			fmt.Printf("Contract refund time lock has expired\n")
+			fmt.Printf("Locktime: block %v\n", pushes.LockTime)
 		}
-	} else {
-		fmt.Printf("Locktime: block %v\n", pushes.LockTime)
 	}
 
 	return api.AuditResponse{

@@ -1,7 +1,7 @@
 # Atomic Swaps
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Go Version](https://img.shields.io/badge/Go-v1.1-blue.svg)
+![Go Version](https://img.shields.io/badge/Go-v1.13-blue.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/DiviProject/atomic-swaps)](https://goreportcard.com/report/github.com/DiviProject/atomic-swaps)
 [![GoDoc](https://godoc.org/DiviProject/atomic-swaps?status.svg)](https://godoc.org/DiviProject/atomic-swaps)
 ![Docker Version](https://img.shields.io/badge/Docker-v2.0.0-blue.svg)

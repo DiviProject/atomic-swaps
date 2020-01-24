@@ -48,42 +48,30 @@ func BuildContract(c *rpcd.Client, args *ContractArgs, currency string) (*BuiltC
 		return nil, err
 	}
 
-	fmt.Println("RawChangeAddress OK")
-
 	RefundAddrHash, ok := RefundAddr.(interface{ Hash160() *[ripemd160.Size]byte })
 	if !ok {
 		return nil, fmt.Errorf("unable to create hash160 from change address")
 	}
-
-	fmt.Println("RefundAddr OK")
 
 	contract, err := AtomicSwap(RefundAddrHash.Hash160(), args.them.Hash160(), args.locktime, args.secretHash)
 	if err != nil {
 		return nil, err
 	}
 
-	fmt.Println("Contract OK")
-
 	contractP2SH, err := diviutil.NewAddressScriptHash(contract, network)
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println("ContractP2SH OK")
 
 	contractP2SHPkScript, err := txscript.PayToAddrScript(contractP2SH)
 	if err != nil {
 		return nil, err
 	}
 
-	fmt.Println("ContractP2SHPK OK")
-
 	feePerKb, minFeePerKb, err := GetFees(c, currency)
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println("Fees OK")
 
 	unsignedContract := wire.NewMsgTx(util.TXVersion)
 	unsignedContract.AddTxOut(wire.NewTxOut(int64(args.amount), contractP2SHPkScript))
@@ -91,8 +79,6 @@ func BuildContract(c *rpcd.Client, args *ContractArgs, currency string) (*BuiltC
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println("FundTX OK")
 
 	contractTx, complete, err := SignTransaction(c, unsignedContract)
 	if err != nil {
@@ -103,16 +89,12 @@ func BuildContract(c *rpcd.Client, args *ContractArgs, currency string) (*BuiltC
 		return nil, fmt.Errorf("signrawtransaction: failed to completely sign contract transaction")
 	}
 
-	fmt.Println("SignTX OK")
-
 	contractTxHash := contractTx.TxHash()
 
 	refundTx, refundFee, err := BuildRefund(c, contract, contractTx, feePerKb, minFeePerKb, currency)
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println("RefundTX OK")
 
 	return &BuiltContract{
 		contract,

@@ -67,24 +67,30 @@ func Participate(address string, amount float64, secretHash []byte, currency str
 		return api.ParticipateResponse{"", "", "", "", "", "", "", "", struct{}{}, nil, 51200}, err
 	}
 
+	var contractBuf bytes.Buffer
+	contractBuf.Grow(b.contractTx.SerializeSize())
+	b.contractTx.Serialize(&contractBuf)
+
 	refundTxHash := b.refundTx.TxHash()
 	contractFeePerKb := CalcFeePerKb(b.contractFee, b.contractTx.SerializeSize())
 	refundFeePerKb := CalcFeePerKb(b.refundFee, b.refundTx.SerializeSize())
 
-	fmt.Printf("Contract fee: %v (%0.8f BTC/kB)\n", b.contractFee, contractFeePerKb)
-	fmt.Printf("Refund fee:   %v (%0.8f BTC/kB)\n\n", b.refundFee, refundFeePerKb)
-	fmt.Printf("Contract (%v):\n", b.contractP2SH)
-	fmt.Printf("%x\n\n", b.contract)
-	var contractBuf bytes.Buffer
-	contractBuf.Grow(b.contractTx.SerializeSize())
-	b.contractTx.Serialize(&contractBuf)
-	fmt.Printf("Contract transaction (%v):\n", b.contractTxHash)
-	fmt.Printf("%x\n\n", contractBuf.Bytes())
 	var refundBuf bytes.Buffer
 	refundBuf.Grow(b.refundTx.SerializeSize())
 	b.refundTx.Serialize(&refundBuf)
-	fmt.Printf("Refund transaction (%v):\n", &refundTxHash)
-	fmt.Printf("%x\n\n", refundBuf.Bytes())
+
+	if autopublish == false {
+		fmt.Printf("Contract fee: %v (%0.8f BTC/kB)\n", b.contractFee, contractFeePerKb)
+		fmt.Printf("Refund fee:   %v (%0.8f BTC/kB)\n\n", b.refundFee, refundFeePerKb)
+		fmt.Printf("Contract (%v):\n", b.contractP2SH)
+		fmt.Printf("%x\n\n", b.contract)
+
+		fmt.Printf("Contract transaction (%v):\n", b.contractTxHash)
+		fmt.Printf("%x\n\n", contractBuf.Bytes())
+
+		fmt.Printf("Refund transaction (%v):\n", &refundTxHash)
+		fmt.Printf("%x\n\n", refundBuf.Bytes())
+	}
 
 	PromptPublishTx(client, b.contractTx, "contract", autopublish)
 
