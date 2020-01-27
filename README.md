@@ -65,6 +65,7 @@ Available Commands:
   version     print the version of atomicswap
 
 Flags:
+      --base-confirmations int     the base currency confirmations required to redeem a swap (default 1)
       --base-rpc-currency string   the base currency (default "bitcoin")
       --base-rpc-host string       the base currency host of the wallet RPC server (default "localhost")
       --base-rpc-network string    the base network configuration (default "regtest")
@@ -78,6 +79,7 @@ Flags:
       --mongo-url string           the url for the MongoDB service (default "mongodb://localhost:27017")
   -y, --no-prompt                  do not prompt transactions with a y/n
       --server-port int            the port of the HTTP server (default 9001)
+      --swap-confirmations int     the swap currency confirmations required to redeem a swap (default 1)
       --swap-rpc-currency string   the swap currency (default "divi")
       --swap-rpc-host string       the swap currency host of the wallet RPC server (default "localhost")
       --swap-rpc-network string    the swap network configuration (default "regtest")
@@ -103,12 +105,14 @@ Below is a sample definition of an atomic swap configuration.
 ```json
 {
     "base-currency": "divi",
+    "base-confirmations": 1,
     "base-rpc-host": "localhost",
     "base-rpc-port": 1337,
     "base-rpc-user": "divi",
     "base-rpc-password": "divi",
     "base-network": "regtest",
     "swap-currency": "bitcoin",
+    "swap-confirmations": 1,
     "swap-rpc-host": "localhost",
     "swap-rpc-port": 1338,
     "swap-rpc-user": "bitcoin",
@@ -119,6 +123,7 @@ Below is a sample definition of an atomic swap configuration.
     "server-port": 9001,
     "grpc-port": 9999
 }
+
 ```
 
 ### HTTP usage

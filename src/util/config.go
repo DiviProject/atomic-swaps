@@ -17,19 +17,21 @@ import (
 // As well as specifications for running the HTTP and GRPC servers
 type Config struct {
 	// Base Currency RPC Configuration
-	BaseCurrency    string `json:"base-currency"`
-	BaseRPCHost     string `json:"base-rpc-host"`
-	BaseRPCPort     int    `json:"base-rpc-port"`
-	BaseRPCUser     string `json:"base-rpc-user"`
-	BaseRPCPassword string `json:"base-rpc-password"`
-	BaseRPCNetwork  string `json:"base-rpc-network"`
+	BaseCurrency      string `json:"base-currency"`
+	BaseConfirmations int64  `json:"base-confirmations"`
+	BaseRPCHost       string `json:"base-rpc-host"`
+	BaseRPCPort       int    `json:"base-rpc-port"`
+	BaseRPCUser       string `json:"base-rpc-user"`
+	BaseRPCPassword   string `json:"base-rpc-password"`
+	BaseRPCNetwork    string `json:"base-rpc-network"`
 	// Swap Currency RPC Configuration
-	SwapCurrency    string `json:"swap-currency"`
-	SwapRPCHost     string `json:"swap-rpc-host"`
-	SwapRPCPort     int    `json:"swap-rpc-port"`
-	SwapRPCUser     string `json:"swap-rpc-user"`
-	SwapRPCPassword string `json:"swap-rpc-password"`
-	SwapRPCNetwork  string `json:"swap-rpc-network"`
+	SwapCurrency      string `json:"swap-currency"`
+	SwapConfirmations int64  `json:"swap-confirmations"`
+	SwapRPCHost       string `json:"swap-rpc-host"`
+	SwapRPCPort       int    `json:"swap-rpc-port"`
+	SwapRPCUser       string `json:"swap-rpc-user"`
+	SwapRPCPassword   string `json:"swap-rpc-password"`
+	SwapRPCNetwork    string `json:"swap-rpc-network"`
 	// Server Configuration
 	MongoURL   string `json:"mongodb"`
 	Database   string `json:"database"`

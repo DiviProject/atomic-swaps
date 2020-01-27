@@ -24,6 +24,7 @@ func CLI() {
 	} else {
 		// Base Currency Wallet RPC flags
 		CommandConfig.PersistentFlags().StringVar(&util.Configuration.BaseCurrency, "base-rpc-currency", "bitcoin", "the base currency")
+		CommandConfig.PersistentFlags().Int64Var(&util.Configuration.BaseConfirmations, "base-confirmations", 1, "the base currency confirmations required to redeem a swap")
 		CommandConfig.PersistentFlags().StringVar(&util.Configuration.BaseRPCHost, "base-rpc-host", "localhost", "the base currency host of the wallet RPC server")
 		CommandConfig.PersistentFlags().IntVar(&util.Configuration.BaseRPCPort, "base-rpc-port", 1337, "the base currency port of the wallet RPC server")
 		CommandConfig.PersistentFlags().StringVar(&util.Configuration.BaseRPCUser, "base-rpc-user", "user", "the base currency user of the wallet RPC server")
@@ -32,6 +33,7 @@ func CLI() {
 
 		// Swap Currency Wallet RPC flags
 		CommandConfig.PersistentFlags().StringVar(&util.Configuration.SwapCurrency, "swap-rpc-currency", "divi", "the swap currency")
+		CommandConfig.PersistentFlags().Int64Var(&util.Configuration.SwapConfirmations, "swap-confirmations", 1, "the swap currency confirmations required to redeem a swap")
 		CommandConfig.PersistentFlags().StringVar(&util.Configuration.SwapRPCHost, "swap-rpc-host", "localhost", "the swap currency host of the wallet RPC server")
 		CommandConfig.PersistentFlags().IntVar(&util.Configuration.SwapRPCPort, "swap-rpc-port", 1337, "the swap currency port of the wallet RPC server")
 		CommandConfig.PersistentFlags().StringVar(&util.Configuration.SwapRPCUser, "swap-rpc-user", "user", "the swap currency user of the wallet RPC server")

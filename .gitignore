@@ -27,3 +27,7 @@ _testmain.go
 
 !**/*.gitkeep
 **/*.DS_Store
+
+# From other branches
+build
+node_modules

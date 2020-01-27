@@ -3,6 +3,7 @@ package db
 
 import (
 	"atomic-swaps/src/swap"
+	"atomic-swaps/src/util"
 	"bytes"
 	"encoding/hex"
 	"fmt"
@@ -50,7 +51,7 @@ func Schedule() {
 
 			fmt.Println(baseTx.Confirmations, swapTx.Confirmations)
 
-			if baseTx.Confirmations >= 0 && swapTx.Confirmations >= 0 {
+			if baseTx.Confirmations >= util.Configuration.BaseConfirmations && swapTx.Confirmations >= util.Configuration.SwapConfirmations {
 				baseContract, err := hex.DecodeString(s.BaseContractBytes)
 				if err != nil {
 					fmt.Println(err)
