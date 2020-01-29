@@ -16,12 +16,14 @@ import (
 // The participate command is how you can participate in an atomic swap via command line.
 // Please note that you will need the secret from the original atomic swap.
 // As well as your address and the amount you want to participate with too.
+// The initiator's address must be the same as the underlying currency specified. If participating a swap on Bitcoin.
+// The address must be a BTC address. If participating in a swap on Divi. The address must be a Divi address.
 var ParticipateCommand = &cobra.Command{
 	Use:   "participate",
-	Short: "participate in an atomic swap. Usage: participate [address] [amount] [secret]",
+	Short: "participate in an atomic swap. Usage: participate [initiator's address] [amount] [secret]",
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 3 {
-			return errors.New("requires an address, an amount and a secret address. Usage: participate [address] [amount] [secret]")
+			return errors.New("requires an initiator's address (in the same underlying currency), an amount and a secret address. Usage: participate [initiator's address] [amount] [secret]")
 		}
 
 		return nil

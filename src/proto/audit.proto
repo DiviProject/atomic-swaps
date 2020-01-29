@@ -4,8 +4,8 @@ package api;
 import "google/api/annotations.proto";
 
 message AuditRequest {
-  string contract = 1;
-  string transaction = 2;
+  string contractBytes = 1;
+  string transactionBytes = 2;
   string currency = 3;
 }
 

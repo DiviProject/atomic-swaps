@@ -46,7 +46,7 @@
     "apiExtractRequest": {
       "type": "object",
       "properties": {
-        "transaction": {
+        "transactionBytes": {
           "type": "string"
         },
         "secret": {

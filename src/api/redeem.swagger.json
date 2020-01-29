@@ -46,10 +46,10 @@
     "apiRedeemRequest": {
       "type": "object",
       "properties": {
-        "contract": {
+        "contractBytes": {
           "type": "string"
         },
-        "transaction": {
+        "transactionBytes": {
           "type": "string"
         },
         "secret": {

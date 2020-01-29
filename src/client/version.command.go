@@ -13,6 +13,6 @@ var VersionCommand = &cobra.Command{
 	Use:   "version",
 	Short: "print the version of atomicswap",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("atomicswap v0.0.1")
+		fmt.Println("atomicswap RC1.0.0")
 	},
 }

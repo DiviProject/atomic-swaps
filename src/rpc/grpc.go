@@ -76,12 +76,12 @@ type Redeem struct{}
 // The api endpoint is /v1/participate
 // It returns the data in regards to redeeming an atomic swap contract
 func (s *Redeem) Redeem(ctx context.Context, message *api.RedeemRequest) (*api.RedeemResponse, error) {
-	contract, err := hex.DecodeString(message.GetContract())
+	contract, err := hex.DecodeString(message.GetContractBytes())
 	if err != nil {
 		return &api.RedeemResponse{"", "", struct{}{}, nil, 51200}, err
 	}
 
-	transaction, err := hex.DecodeString(message.GetTransaction())
+	transaction, err := hex.DecodeString(message.GetTransactionBytes())
 	if err != nil {
 		return &api.RedeemResponse{"", "", struct{}{}, nil, 51200}, err
 	}
@@ -111,8 +111,8 @@ type Refund struct{}
 // The api endpoint is /v1/refund
 // It returns the data in regards to getting a refund from an atomic swap contract
 func (s *Refund) Refund(ctx context.Context, message *api.RefundRequest) (*api.RefundResponse, error) {
-	contract := message.GetContract()
-	transaction := message.GetTransaction()
+	contract := message.GetContractBytes()
+	transaction := message.GetTransactionBytes()
 	currency := message.GetCurrency()
 
 	c, _ := hex.DecodeString(contract)
@@ -136,7 +136,7 @@ type Extract struct{}
 // The api endpoint is /v1/extract
 // It returns the data in regards to extracting the secret information from an atomic swap contract
 func (s *Extract) Extract(ctx context.Context, message *api.ExtractRequest) (*api.ExtractResponse, error) {
-	transaction := message.GetTransaction()
+	transaction := message.GetTransactionBytes()
 	secret := message.GetSecret()
 
 	contractTxBytes, _ := hex.DecodeString(transaction)
@@ -162,8 +162,8 @@ type Audit struct{}
 // The api endpoint is /v1/audit
 // It returns the data in regards to verifying an atomic swap contract is valid
 func (s *Audit) Audit(ctx context.Context, message *api.AuditRequest) (*api.AuditResponse, error) {
-	contract := message.GetContract()
-	transaction := message.GetTransaction()
+	contract := message.GetContractBytes()
+	transaction := message.GetTransactionBytes()
 
 	contractHash, _ := hex.DecodeString(contract)
 	contractTxBytes, _ := hex.DecodeString(transaction)

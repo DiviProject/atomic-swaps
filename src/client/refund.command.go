@@ -18,10 +18,10 @@ import (
 // You will need the contract bytes and the contract transaction bytes to refund an atomic swap
 var RefundCommand = &cobra.Command{
 	Use:   "refund",
-	Short: "refund an atomic swap. Usage: refund [contract] [contract transaction]",
+	Short: "refund an atomic swap. Usage: refund [contract bytes] [contract transaction bytes]",
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 2 {
-			return errors.New("requires a contract and contract transaction. Usage: refund [contract] [contract transaction]")
+			return errors.New("requires the contract bytes and the contract transaction bytes. Usage: refund [contract bytes] [contract transaction bytes]")
 		}
 
 		return nil

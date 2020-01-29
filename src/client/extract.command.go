@@ -18,10 +18,10 @@ import (
 // Please note you will need the contract transaction bytes and the secret seed.
 var ExtractCommand = &cobra.Command{
 	Use:   "extract",
-	Short: "extract the secret for an atomic swap. Usage: extract [contract transaction] [secret]",
+	Short: "extract the secret for an atomic swap. Usage: extract [contract transaction bytes] [secret]",
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 2 {
-			return errors.New("requires a redeeming transaction and a secret hash. Usage: extract [contract transaction] [secret]")
+			return errors.New("requires an initiate or participate transaction with the secret hash. Usage: extract [contract transaction bytes] [secret]")
 		}
 
 		return nil

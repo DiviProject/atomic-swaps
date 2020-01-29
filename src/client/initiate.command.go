@@ -14,12 +14,14 @@ import (
 // InitiateCommand : The initiate command
 // The initiate command is how you can initiate an atomic swap via command line.
 // Please note that you need access to an RPC server and also need to specify the address and the amount.
+// The participant's address must be the same as the underlying currency specified. If initiating a swap on Bitcoin.
+// The address must be a BTC address. If initiating a swap on Divi. The address must be a Divi address.
 var InitiateCommand = &cobra.Command{
 	Use:   "initiate",
-	Short: "initiate an atomic swap. Usage: initiate [address] [amount]",
+	Short: "initiate an atomic swap. Usage: initiate [participant's address] [amount]",
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 2 {
-			return errors.New("requires an address and an amount. Usage: initiate [address] [amount]")
+			return errors.New("requires the participant's address (in the same underlying currency) and an amount. Usage: initiate [participant's address] [amount]")
 		}
 
 		return nil

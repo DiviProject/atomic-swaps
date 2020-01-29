@@ -12,6 +12,8 @@
 
 Based off of the original [Atomic Swap implementation by Decred](https://github.com/decred/atomicswap). Divi has created a production ready Atomic Swap implementation that is gRPC and HTTP enabled. This enables Atomic Swaps to be workable with mobile and web applications.
 
+If you want to learn more about how to use atomic swaps. Head to our [documentation page](https://atomic-swaps.diviproject.org).
+
 ## Compiling from source
 
 ### Compilation and Installation
@@ -55,13 +57,13 @@ Usage:
   atomicswap [command]
 
 Available Commands:
-  audit       audit and validate an existing atomic swap contract. Usage: audit [contract] [contract transaction]
-  extract     extract the secret for an atomic swap. Usage: extract [contract transaction] [secret]
+  audit       audit and validate an existing atomic swap contract. Usage: audit [contract bytes] [contract transaction bytes]
+  extract     extract the secret for an atomic swap. Usage: extract [contract transaction bytes] [secret]
   help        Help about any command
-  initiate    initiate an atomic swap. Usage: initiate [address] [amount]
-  participate participate in an atomic swap. Usage: participate [address] [amount] [secret]
-  redeem      redeem an atomic swap. Usage: redeem [contract] [contract transaction] [secret]
-  refund      refund an atomic swap. Usage: refund [contract] [contract transaction]
+  initiate    initiate an atomic swap. Usage: initiate [participant's address] [amount]
+  participate participate in an atomic swap. Usage: participate [initiator's address] [amount] [secret]
+  redeem      redeem an atomic swap. Usage: redeem [contract bytes] [contract transaction bytes] [secret]
+  refund      refund an atomic swap. Usage: refund [contract bytes] [contract transaction bytes]
   version     print the version of atomicswap
 
 Flags:

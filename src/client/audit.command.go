@@ -18,10 +18,10 @@ import (
 // Please note that you will need the contract bytes and the contract transaction bytes.
 var AuditCommand = &cobra.Command{
 	Use:   "audit",
-	Short: "audit and validate an existing atomic swap contract. Usage: audit [contract] [contract transaction]",
+	Short: "audit and validate an existing atomic swap contract. Usage: audit [contract bytes] [contract transaction bytes]",
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 2 {
-			return errors.New("requires a contract and a contract transaction. Usage: audit [contract] [contract transaction]")
+			return errors.New("requires a contract bytes and a contract transaction bytes. Usage: audit [contract bytes] [contract transaction bytes]")
 		}
 
 		return nil

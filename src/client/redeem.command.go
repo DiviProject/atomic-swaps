@@ -19,10 +19,10 @@ import (
 // You will also need the contract bytes and the contract transaction bytes.
 var RedeemCommand = &cobra.Command{
 	Use:   "redeem",
-	Short: "redeem an atomic swap. Usage: redeem [contract] [contract transaction] [secret]",
+	Short: "redeem an atomic swap. Usage: redeem [contract bytes] [contract transaction bytes] [secret]",
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 3 {
-			return errors.New("requires a contact, a contract transaction and a secret address. Usage: redeem [contract] [contract transaction] [secret]")
+			return errors.New("requires the contact bytes, the contract transaction bytes and a secret address. Usage: redeem [contract bytes] [contract transaction bytes] [secret]")
 		}
 
 		return nil
