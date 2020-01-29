@@ -131,24 +131,31 @@ div.page-wrap.page-examples {
     div.example-content {
         div.example-text {
             width: 100%;
-            padding: 0 0 15px 0;
+            padding: 15px 0;
 
             h3 {
                 font-size: 18px;
-                font-weight: 700;
-                padding: 30px 0;
+                font-weight: 400;
+                padding: 0 0 10px 0;
             }
 
             h4 {
-                font-size: 16px;
+                font-size: 14px;
                 font-weight: bold;
-                padding: 0;
+                letter-spacing: 1px;
+                padding: 0 0 5px 0;
                 margin: 0;
                 span.red {
                     color: #e17366;
                     font-weight: bold;
                     margin: 0 5px 0 0;
                 }
+            }
+            p {
+                margin: 0;
+                padding: 0 0 10px 0;
+                font-size: 14px;
+                line-height: 1.5;
             }
         }
 

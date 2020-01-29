@@ -30,12 +30,15 @@ export class SwapExample extends Component {
                     <div className="example-content">
                         <div className="example-text">
                             <p>
-                                Using one POST request to the HTTP API. You can execute an atomic swap.
+                                With one post request, you will be able to execute an atomic swap.
                             </p>
                             <p>
-                                Just specify the base and swap addresses and amounts. And it will begin coordination of the atomic swap.
-                                Keep in mind that a certain amount of confirmations must be active on these chains in order for it to succeed.
-                                You can configure the confirmations in your atomicswap.json file.
+                                The base address is the participant's address. This is the Base RPC sending money to the
+                                participant.
+                            </p>
+                            <p>
+                                The swap address is the initiator's address. This is the Swap RPC sending money to the
+                                initiator.
                             </p>
                         </div>
                         <CodeMirror

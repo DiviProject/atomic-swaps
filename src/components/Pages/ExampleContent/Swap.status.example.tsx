@@ -31,12 +31,8 @@ export class SwapStatusExample extends Component {
                     <div className="example-content">
                         <div className="example-text">
                             <p>
-                                Query the
-                            </p>
-                            <p>
-                                Just specify the base and swap addresses and amounts. And it will begin coordination of the atomic swap.
-                                Keep in mind that a certain amount of confirmations must be active on these chains in order for it to succeed.
-                                You can configure the confirmations in your atomicswap.json file.
+                                To check the status of your atomic swap. You will need to query the atomic swap node with the
+                                id given when initiating the swap.
                             </p>
                         </div>
                         <CodeMirror
@@ -49,8 +45,9 @@ export class SwapStatusExample extends Component {
                         />
                         <div className="example-text">
                             <p>
-                                Once the process starts. You will receive a response with your swap id. This swap id can be used
-                                to query the atomic swap server to check the status of your swap.
+                                If the server is able to find the swap. You will receive the related addresses and contract
+                                transactions. It will display "pending" or "complete" based on when the transactions have
+                                been executed.
                             </p>
                         </div>
                         <CodeMirror

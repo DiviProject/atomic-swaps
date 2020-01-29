@@ -9,12 +9,12 @@ export type AuditState = {
     example: number;
 };
 
-export const AuditCLI = `$ atomicswap audit [contract] [contract transaction]
+export const AuditCLI = `$ atomicswap audit [contract bytes] [contract transaction bytes]
 $ Contract details`;
 
 export const AuditHTTP = `$ curl -d \\
 '{ \\
-    "contract": "contract hash", \\
+    "contract": "contract bytes", \\
     "transaction": "contract transaction bytes", \\
     "currency": "base" \\
 }' \\
@@ -44,9 +44,6 @@ export class AuditExample extends Component<AuditProps, AuditState> {
                         <div className="example-text">
                             <p>
                                 If you want to review or verify the contents of an atomic swap contract. You can use the audit command. This command outputs all related information in regards to the atomic swap.
-                            </p>
-                            <p>
-                            A connection to the RPC node that has the address and private key associated with the atomic swap contract is required to execute a refund successfully.
                             </p>
                         </div>
                         <CodeMirror

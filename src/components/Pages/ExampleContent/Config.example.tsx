@@ -17,14 +17,14 @@ $   atomicswap [flags]
 $   atomicswap [command]
 
 $ Available Commands:
-$   audit       audit and validate an existing atomic swap contract. Usage: audit [contract] [contract transaction]
-$   extract     extract the secret for an atomic swap. Usage: extract [contract transaction] [secret]
-$   help        Help about any command
-$   initiate    initiate an atomic swap. Usage: initiate [address] [amount]
-$   participate participate in an atomic swap. Usage: participate [address] [amount] [secret]
-$   redeem      redeem an atomic swap. Usage: redeem [contract] [contract transaction] [secret]
-$   refund      refund an atomic swap. Usage: refund [contract] [contract transaction]
-$   version     print the version of atomicswap
+$ audit       audit and validate an existing atomic swap contract. Usage: audit [contract bytes] [contract transaction bytes]
+$ extract     extract the secret for an atomic swap. Usage: extract [contract transaction bytes] [secret]
+$ help        Help about any command
+$ initiate    initiate an atomic swap. Usage: initiate [participant's address] [amount]
+$ participate participate in an atomic swap. Usage: participate [initiator's address] [amount] [secret]
+$ redeem      redeem an atomic swap. Usage: redeem [contract bytes] [contract transaction bytes] [secret]
+$ refund      refund an atomic swap. Usage: refund [contract bytes] [contract transaction bytes]
+$ version     print the version of atomicswap
 
 $ Flags:
 $       --base-confirmations int     the base currency confirmations required to redeem a swap (default 1)
@@ -52,21 +52,22 @@ $       --use-base string            Use the base currency RPC specs for the CLI
 $       --use-swap string            Use the swap currency RPC specs for the CLI command, default is base (default "swap")`;
 
 export const ConfigExampleJSON = `{
-    // Base Currency RPC Configuration
     "base-currency": "divi",
+    "base-confirmations": 1,
     "base-rpc-host": "localhost",
     "base-rpc-port": 1337,
     "base-rpc-user": "divi",
     "base-rpc-password": "divi",
     "base-network": "regtest",
-    // Swap Currency RPC Configuration
     "swap-currency": "bitcoin",
+    "swap-confirmations": 1,
     "swap-rpc-host": "localhost",
     "swap-rpc-port": 1338,
     "swap-rpc-user": "bitcoin",
     "swap-rpc-password": "bitcoin",
     "swap-network": "regtest",
-    // Server Configuration
+    "mongodb": "mongodb://localhost:27017",
+    "database": "atomic-swaps",
     "server-port": 9001,
     "grpc-port": 9999
 }`;
@@ -80,7 +81,7 @@ export class ConfigExample extends Component<ConfigProps, ConfigState> {
     public render() {
         return(
             <div className="example-wrap" id="e1">
-                <h2>Configuring for Atomic Swaps</h2>
+                <h2>Configuration</h2>
                 <div className="example">
                     <div className="example-buttons">
                         <a className={`example-button ${this.state.example === 0 ? 'active' : ''}`} onClick={(() => this.setState({ example: 0 }))}>
@@ -95,9 +96,8 @@ export class ConfigExample extends Component<ConfigProps, ConfigState> {
                         <div className="example-text">
                             <p>
                                 To configure an atomic swap server (or command-line tool). You need to either pass arguments into the command line or use an atomic swap JSON configuration file.
-                            </p>
-                            <p>
-                                Below showcases how you can configure atomic swaps with both a configuration file and via command-line flags.
+                                Below showcases how you can configure atomic swaps with both a configuration file and via command-line flags. Make sure that your RPC nodes are properly
+                                configured to allow the atomic swap node to interact with them.
                             </p>
                         </div>
                         <CodeMirror

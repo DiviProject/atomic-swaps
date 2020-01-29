@@ -10,15 +10,17 @@ export class SetupExample extends Component {
     public render() {
         return(
             <div className="example-wrap" id="e2">
-                <h2>Setting up a gRPC + HTTP Server</h2>
+                <h2>Running a Node</h2>
                 <div className="example">
                     <div className="example-content">
                         <div className="example-text">
                             <p>
-                                Setting up an Atomic Swap server is pretty straight forward. It would be best if you run it only `atomicswap` binary. Just be sure to have the right configuration setup.
-                            </p>
-                            <p>
-                                You can pass the config flag or other flags to configure the atomic swaps accordingly.
+                                Assuming that you have successfully compiled the atomic swap binary.
+                                And, that you also have access to RPC nodes for Bitcoin and Divi.
+                                You can run an atomic swap node. This atomic swap node can be hosted
+                                locally on your own machine. Or it can be hosted in the cloud.
+                                The flexibility of the atomic swap reflects the flexibility of a
+                                Bitcoin or Divi full node.
                             </p>
                         </div>
                         <CodeMirror

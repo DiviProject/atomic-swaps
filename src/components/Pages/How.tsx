@@ -35,12 +35,14 @@ export class How extends Component {
                 <h3>The original implementation</h3>
 
                 <p>
-                    In the original implementation by Decred (which you can also do with our extended API).
-                    An atomic was executed procedurally by the user.
+                    In the original implementation by Decred.
+                    An Atomic Swap was executed procedurally by the user.
+                    This same functionality is also part of our extended API if you need more granular control
+                    over the process.
                 </p>
 
                 <ol>
-                   <li>User 1 initiates an atomic swap on chain 1</li>
+                   <li>User 1 initiates an Atomic Swap on chain 1</li>
                    <li>User 1 gives the secret hash to User 2</li>
                    <li>User 2 create a participating atomic swap on chain 2</li>
                    <li>User 1 and 2 redeem the atomic swap contracts on their respective chains</li>
@@ -50,16 +52,13 @@ export class How extends Component {
 
                 <p>
                     We have improved this implementation by automating the entire process for atomic swaps.
-                    Simply just send a HTTP request to initiate a swap. And it will automatically execute one.
+                    Simply just send a HTTP request to initiate a swap to execute an Atomic Swap.
                     Just be mindful that blocks need to be mined for the atomic swap to execute.
                 </p>
 
                 <ol>
                     <li>User sends a post request to initiate an atomic swap</li>
-                    <li>Atomic Swap server creates an initiate atomic swap contract on chain 1</li>
-                    <li>Atomic Swap server creates a participate atomic swap contract on chain 2</li>
-                    <li>Atomic Swap server waits for atleast 1 block confirmation on both chains</li>
-                    <li>Atomic Swap server redeems both atomic swap contracts</li>
+                    <li>The Atomic Swap node automates the entire process.</li>
                 </ol>
 
                 <h3>Getting Started</h3>
@@ -70,9 +69,8 @@ export class How extends Component {
                         <i className="fas fa-graduation-cap"></i>
                         Examples
                     </Link>
-                    section which has several illustrated examples of how to setup an Atomic Swap
-                    server. And how to execute Atomic Swaps. We hope you enjoy this free open source
-                    implementation of Atomic Swaps and it's useful for you!
+                    section which will teach you how to setup a node and execute swaps.
+                    We hope you enjoy this free open source implementation.
                 </p>
             </div>
         )

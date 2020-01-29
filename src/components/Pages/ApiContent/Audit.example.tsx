@@ -27,8 +27,8 @@ package api;
 import "google/api/annotations.proto";
 
 message AuditRequest {
-  string contract = 1;
-  string transaction = 2;
+  string contractBytes = 1;
+  string transactionBytes = 2;
   string currency = 3;
 }
 
@@ -90,17 +90,17 @@ export class AuditApi extends Component<AuditProps, AuditState> {
                             </p>
                             <h4>
                                 <span className="red">[string]</span>
-                                contract
+                                contractBytes
                             </h4>
                             <p>
-                                The contract address that is holding the atomic swap funds.
+                                The contract bytecode that was received when creating an atomic swap initiate or participate contract.
                             </p>
                             <h4>
                                 <span className="red">[string]</span>
-                                transaction
+                                transactionBytes
                             </h4>
                             <p>
-                                The contract transaction bytes to verify the atomic swap.
+                                The contract transaction bytecode that was received when creating an atomic swap initiate or participate contract.
                             </p>
 
                             <h3>Request Response</h3>

@@ -29,8 +29,8 @@ package api;
 import "google/api/annotations.proto";
 
 message RedeemRequest {
-  string contract = 1;
-  string transaction = 2;
+  string contractBytes = 1;
+  string transactionBytes = 2;
   string secret = 3;
   string currency = 4;
 }
@@ -89,25 +89,24 @@ export class RedeemApi extends Component<RedeemProps, RedeemState> {
                             </p>
                             <h4>
                                 <span className="red">[string]</span>
-                                contract
+                                contractBytes
                             </h4>
                             <p>
-                                The contract address that is holding the atomic swap funds.
+                                The contract bytecode that was received when creating an atomic swap initiate or participate contract.
                             </p>
                             <h4>
                                 <span className="red">[string]</span>
-                                transaction
+                                transactionBytes
                             </h4>
                             <p>
-                                The contract transaction bytes to verify the atomic swap.
+                                The contract transaction bytecode that was received when creating an atomic swap initiate or participate contract.
                             </p>
                             <h4>
                                 <span className="red">[secret]</span>
                                 hash
                             </h4>
                             <p>
-                                The secret hash that was created during an initiate or participate atomic swap
-                                HTTP call.
+                                The secret that was created during an initiate atomic swap call.
                             </p>
 
                             <h3>Request Response</h3>

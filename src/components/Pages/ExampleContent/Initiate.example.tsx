@@ -9,7 +9,7 @@ export type InitiateState = {
     example: number;
 };
 
-export const InitiateCLI = `$ atomicswap initiate [address] [amount]
+export const InitiateCLI = `$ atomicswap initiate [participant's address] [amount]
 $ Do you want to publish this transaction? [y/N]
 $ yes`;
 
@@ -45,11 +45,17 @@ export class InitiateExample extends Component<InitiateProps, InitiateState> {
                     <div className="example-content">
                         <div className="example-text">
                             <p>
-                                To start an atomic swap. You need to provide an address associated with the RPC node you are using (see the configuration section). Please note that you need to use an address compatible with either the base or swap RPC node.
+                                To start an atomic swap.
+                                You will need to get the participant's address.
+                                This address must be compatible with the base RPC node.
                             </p>
                             <p>
                                 You also need to provide an amount (in the RPC currency's value)
-                                to keep in the atomic swap contract.
+                                to send to the atomic swap contract.
+                            </p>
+                            <p>
+                                Once the initiate successfully execute. You will get a secret, the contract and contract
+                                transaction hashes and bytecodes. Make sure to save this and store it handy for later.
                             </p>
                         </div>
                         <CodeMirror

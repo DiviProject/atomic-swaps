@@ -93,21 +93,21 @@ export class Examples extends Component<ExamplesProps, ExamplesState> {
                 <div className="page-column table-of-contents">
                     <h3>Getting Started</h3>
                     <a className={`link ${this.state.active === 0 ? 'active' : ''}`} onClick={this.scrollTo.bind(this, 'div#e0')}>
-                        0. Compilation
+                        0. Setting up
                     </a>
                     <a className={`link ${this.state.active === 1 ? 'active' : ''}`} onClick={this.scrollTo.bind(this, 'div#e1')}>
                         1. Configuration
                     </a>
                     <a className={`link ${this.state.active === 2 ? 'active' : ''}`} onClick={this.scrollTo.bind(this, 'div#e2')}>
-                        2. Setting up a gRPC Server
+                        2. Running a Node
                     </a>
                     <a className={`link ${this.state.active === 3 ? 'active' : ''}`} onClick={this.scrollTo.bind(this, 'div#e3')}>
-                        3. Executing via command line
+                        3. Executing Commands
                     </a>
 
                     <h3>Automated Examples</h3>
                     <a className={`link ${this.state.active === 10 ? 'active' : ''}`} onClick={this.scrollTo.bind(this, 'div#e10')}>
-                        0. Initiating an atomic swap
+                        0. Initiating an Atomic Swap
                     </a>
                     <a className={`link ${this.state.active === 11 ? 'active' : ''}`} onClick={this.scrollTo.bind(this, 'div#e11')}>
                         1. Check the status

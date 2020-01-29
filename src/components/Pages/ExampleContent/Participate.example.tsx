@@ -9,7 +9,7 @@ export type ParticipateState = {
     example: number;
 };
 
-export const ParticipateCLI = `$ atomicswap participate [address] [amount] [secret]
+export const ParticipateCLI = `$ atomicswap participate [initiator's address] [amount] [secret]
 $ Do you want to publish this transaction? [y/N]
 $ yes`;
 
@@ -45,10 +45,16 @@ export class ParticipateExample extends Component<ParticipateProps, ParticipateS
                     <div className="example-content">
                         <div className="example-text">
                             <p>
-                                To participate in an atomic swap. The person who created the original atomic swap contract must send you the secret. After you must use the participate command to create your atomic swap contract tied to the other contract.
+                                To participate in an atomic swap. You need to get the initiator's address.
+                                This address must be compatible with the swap RPC node.
                             </p>
                             <p>
-                                You receive a contract, contract transaction and secret for your new atomic swap contract. You must provide these details to your friends so they can redeem their funds.
+                                You also need to provide an amount (in the RPC currency's value)
+                                to send to the participate side of the atomic swap contract.
+                            </p>
+                            <p>
+                                Once the initiate successfully execute. You will the contract and contract
+                                transaction hashes and bytecodes for the participate contract. Make sure to save this and store it handy for later.
                             </p>
                         </div>
                         <CodeMirror

@@ -44,10 +44,14 @@ export class RefundExample extends Component<RefundProps, RefundState> {
                     <div className="example-content">
                         <div className="example-text">
                             <p>
-                                If at any point you want to back out of an atomic swap. You can refund the contract you created. Whether it was a `participate` or `initiate` contract. Input the contract hash and the contract transaction bytes. And the funds are transferred back to the original address.
+                                If at any point you want to refund an atomic swap.
+                                You will need to execute a refund for either the participate or initiate contract.
                             </p>
                             <p>
-                                A connection to the RPC node that has the address and private key associated with the atomic swap contract is required to execute a refund successfully.
+                                For the base currency. You will need to use the initiate contract bytecodes to create a refund.
+                            </p>
+                            <p>
+                                For the swap currency. You will need to use the participate contract bytecodes to create a refund.
                             </p>
                         </div>
                         <CodeMirror

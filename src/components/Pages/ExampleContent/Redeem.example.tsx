@@ -9,13 +9,13 @@ export type RedeemState = {
     example: number;
 };
 
-export const RedeemCLI = `$ atomicswap redeem [contract] [contract transaction] [secret]
+export const RedeemCLI = `$ atomicswap redeem [contract bytes] [contract transaction bytes] [secret]
 $ Do you want to publish this transaction? [y/N]
 $ yes`;
 
 export const RedeemHTTP = `$ curl -d \\
 '{ \\
-    "contract": "contract hash", \\
+    "contract": "contract bytes", \\
     "transaction": "contract transaction bytes", \\
     "secret": "1A1zP1ePsatoshi5QGefi2DMPTfTL5SLmpoopamotov7DivfNa", \\
     "currency": "base" \\
@@ -45,10 +45,18 @@ export class RedeemExample extends Component<RedeemProps, RedeemState> {
                     <div className="example-content">
                         <div className="example-text">
                             <p>
-                                If someone has participated in your atomic swap. You can then redeem your funds from their wallet by using the redeem command. You can use the secret provided by either the participate transaction or the initial transaction and then redeem funds to your wallet.
+                                In order to redeem the transaction.
+                                You must execute the redeem for both the initiate and participate contracts.
                             </p>
                             <p>
-                                Remember, there must be a connection to the RPC node that has the address and private key associated with the initiated or participating atomic swap contract.
+                                For the base currency. You will need to use the initiate contract bytecodes to redeem it.
+                            </p>
+                            <p>
+                                For the swap currency. You will need to use the participate contract bytecodes to redeem it.
+                            </p>
+                            <p>
+                                Once both transactions are submitted on both networks. The atomic swap was successfully
+                                executed. Good work!
                             </p>
                         </div>
                         <CodeMirror
